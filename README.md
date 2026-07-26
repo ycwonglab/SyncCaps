@@ -114,7 +114,7 @@ up to the readout module, selected by `readout='linear'` versus `readout='sync'`
 | `figures/` | The three figures shown above, downscaled from the manuscript originals. |
 
 **Live page:** enable GitHub Pages (Settings → Pages → Deploy from branch → `main` / root); the
-full record is then served at `https://yan9289.github.io/syncaps/`.
+full record is then served at `https://ycwonglab.github.io/syncaps/`.
 
 ## Deliberately not here
 
