@@ -112,22 +112,7 @@ up to the readout module, selected by `readout='linear'` versus `readout='sync'`
 | `data/*.json` | Per-seed accuracy, per-tick arrays, per-class recall, exit ticks, decay histograms. |
 | `data/efficiency_numbers.json` | Parameter enumeration and thop MAC counts for all six configurations. |
 | `figures/` | The three figures shown above, downscaled from the manuscript originals. |
-
-**Live page:** enable GitHub Pages (Settings → Pages → Deploy from branch → `main` / root); the
-full record is then served at `https://ycwonglab.github.io/syncaps/`.
-
-## Unlisted while under review
-
-The record is meant to be reachable by anyone holding the URL — reviewers and editors — but not
-surfaced by web search until the manuscript is accepted. Two controls enforce that: `robots.txt`
-disallows all crawlers site-wide, and `index.html` carries
-`<meta name="robots" content="noindex, nofollow">`.
-
-**After acceptance:** delete `robots.txt` and drop that meta tag to allow indexing.
-
-Compliant search engines honour both, but a public GitHub repository remains browsable and
-searchable on github.com itself. If the repository needs to be hidden too, keep it private until
-acceptance and share the record through a direct link instead.
+  
 
 ## Deliberately not here
 
