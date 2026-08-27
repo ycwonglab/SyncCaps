@@ -1,0 +1,140 @@
+{
+  "nearest_ancestor_commit": "5f174669d96ac2957ce4787653c1df4270f18b02",
+  "committed": "2026-08-26T22:11:48+08:00",
+  "subject": "fix(figures): regenerate Figs 6-8 on the corrected checkpoint",
+  "IMPORTANT": "This snapshot is the WORKING TREE that produced the results, not the contents of the named commit. See VS_COMMIT below.",
+  "files": {
+    "exp_base.py": {
+      "sha256": "8a15212b960bcfd06a7ed8f3ee1471339d55639c436c2d2b82cd1ac513159d41",
+      "bytes": 21778,
+      "vs_commit": "MODIFIED_since_commit",
+      "git_blob_sha1_at_commit": "95adf94a5c116ad08f9b9a9b52f96b1b8de9f9b4"
+    },
+    "synccaps_probe_experiment.py": {
+      "sha256": "622d75ab3e3c5b05daac2422430ad0afa4da14d628b940301d991e874048cda0",
+      "bytes": 14840,
+      "vs_commit": "MODIFIED_since_commit",
+      "git_blob_sha1_at_commit": "b8796bb2cef1dfde1c71367846decef09906d864"
+    },
+    "synccaps_followup_experiment.py": {
+      "sha256": "a3f5159255dbfe93d1d4de25a5f42ad10c6cb40c17c09ec0942e676c6d655be4",
+      "bytes": 24454,
+      "vs_commit": "identical_to_commit",
+      "git_blob_sha1_at_commit": "5df0c2bc9587f47c62628a01f7a244dcc291aaa2"
+    },
+    "synccaps_precompute_stem.py": {
+      "sha256": "0ccd189ceca71de34ef0f574c96ca3a3e6bc5c971fa585ce9c086d49e1dc0c8f",
+      "bytes": 5639,
+      "vs_commit": "UNTRACKED_at_commit",
+      "git_blob_sha1_at_commit": null
+    },
+    "synccaps_multiclip_eval.py": {
+      "sha256": "ac20a18064f4e9abb2ced6041fc0c7e8c9277e0aa668412132b50b5d2bd40678",
+      "bytes": 8867,
+      "vs_commit": "identical_to_commit",
+      "git_blob_sha1_at_commit": "e7c47a5d33b5dfeb69e780d2891b8422f29a13f9"
+    },
+    "synccaps_perclip_dump.py": {
+      "sha256": "108a74690d86b377b8033303127112245e7da20493616495c0b8cd5d989e61ad",
+      "bytes": 7281,
+      "vs_commit": "identical_to_commit",
+      "git_blob_sha1_at_commit": "f1fd56be5b814638d8a8f2078930315777e036b6"
+    },
+    "synccaps_route_probe.py": {
+      "sha256": "24c3b74016841a6784a7f53c61c17fddc57156fadedecf0c8aaa678540db35cf",
+      "bytes": 5254,
+      "vs_commit": "UNTRACKED_at_commit",
+      "git_blob_sha1_at_commit": null
+    },
+    "synccaps_matrix_table.py": {
+      "sha256": "4fb8b4e45c9e628fd8058938d67970ac38adcab8ce4a88c56e5953de9f1f7dde",
+      "bytes": 5011,
+      "vs_commit": "UNTRACKED_at_commit",
+      "git_blob_sha1_at_commit": null
+    },
+    "synccaps_repair_report.py": {
+      "sha256": "f317f9af2a49ba1ef3e22dccaf39aeb4360af696e7573567adb374efc3cef384",
+      "bytes": 10473,
+      "vs_commit": "identical_to_commit",
+      "git_blob_sha1_at_commit": "73e2e5be8567de65f2ce2c2556c590c1247c398b"
+    },
+    "synccaps_mcnemar.py": {
+      "sha256": "0bc658e7e9dc5953c99f9b68f80bbfb1e6937b89290a121101fee59f2065fdba",
+      "bytes": 15176,
+      "vs_commit": "identical_to_commit",
+      "git_blob_sha1_at_commit": "0e1f0907f8cf913aa0a6e17fe8d482a9dbf24f1c"
+    },
+    "synccaps_readout_profile.py": {
+      "sha256": "71364900214b63c082285939c3dfdd5709da48eac6d460628c04fd896c2612c7",
+      "bytes": 4830,
+      "vs_commit": "UNTRACKED_at_commit",
+      "git_blob_sha1_at_commit": null
+    },
+    "src/models/sync_caps.py": {
+      "sha256": "0f42c7d8b8e61ab44f83fdf0fb4a3dda144bdb79e76c8326b4d0730ad77808dc",
+      "bytes": 45302,
+      "vs_commit": "identical_to_commit",
+      "git_blob_sha1_at_commit": "266da7625019a050dea39cc0475390e5cd6578e8"
+    },
+    "src/models/temporal_routing.py": {
+      "sha256": "a72b0630f1f0f57c765a687b768b47eae10ba9cac407702be14d46af767b4dfa",
+      "bytes": 7334,
+      "vs_commit": "identical_to_commit",
+      "git_blob_sha1_at_commit": "83f52a0c3cc1395ff37145f3b27668257d33d19f"
+    },
+    "src/models/capsule_layers.py": {
+      "sha256": "471189b12798adfb784f237093d36f8efd8de5f7a52274430bb1f2d6713c14fc",
+      "bytes": 15513,
+      "vs_commit": "identical_to_commit",
+      "git_blob_sha1_at_commit": "28e38d12e78aa4d7f59a13af7fbf98a816ca7fd3"
+    },
+    "src/models/__init__.py": {
+      "sha256": "9bdea8cde774150e4b2607dbb6bae43ef77fbc3c32edd03f3ed79432de40d829",
+      "bytes": 259,
+      "vs_commit": "identical_to_commit",
+      "git_blob_sha1_at_commit": "8b6e2df120bf34e457a78e9bd56ce92b40083932"
+    },
+    "docs/paper/make_tick_strategy_figure.py": {
+      "sha256": "5509a4fc47b33379dcd49efa653ec5c519096cbfd8bc0e910e155d358c22e62f",
+      "bytes": 6196,
+      "vs_commit": "UNTRACKED_at_commit",
+      "git_blob_sha1_at_commit": null
+    },
+    "docs/paper/make_neuron_dynamics_figure.py": {
+      "sha256": "c1ea5ae9f59fbaaf4878f103fd5fd0f93bf025602bead1370e8d4adc1adaaced",
+      "bytes": 26015,
+      "vs_commit": "identical_to_commit",
+      "git_blob_sha1_at_commit": "d93115e69b305a9a31f0c01eeb82d431cad65064"
+    },
+    "docs/paper/make_activity_web_grid.py": {
+      "sha256": "d907d52dd44cbc2940bff0fffce83022b2f43d0a2aa3720a078500163ffc933b",
+      "bytes": 4995,
+      "vs_commit": "UNTRACKED_at_commit",
+      "git_blob_sha1_at_commit": null
+    },
+    "docs/paper/make_activity_web_grid_peaktick.py": {
+      "sha256": "8f100bbf1d481c09a733bf3346e1318c0ceead5e7eb42c96b4c1a50a6dbdacf6",
+      "bytes": 6899,
+      "vs_commit": "UNTRACKED_at_commit",
+      "git_blob_sha1_at_commit": null
+    },
+    "docs/paper/make_fixedmap_figure.py": {
+      "sha256": "8d539b23907eb85c84b2b4c2fdc0cd4fc2e5767f0163086d64ee979aa32e3969",
+      "bytes": 9501,
+      "vs_commit": "UNTRACKED_at_commit",
+      "git_blob_sha1_at_commit": null
+    },
+    "requirements.txt": {
+      "sha256": "721002af2a8430acc1a0ebc6c3aed2dfef29946d301b2784f8bec2d8cb16a450",
+      "bytes": 434,
+      "vs_commit": "identical_to_commit",
+      "git_blob_sha1_at_commit": "593d57989ebbdbf75f8855fde71526deb9aa5f36"
+    },
+    "environment.yml": {
+      "sha256": "9b62081e1010f7c6e18e035be7bd79390cadda7d92f6485ba3757ce7c1293bd5",
+      "bytes": 647,
+      "vs_commit": "identical_to_commit",
+      "git_blob_sha1_at_commit": "3655ce83b69dba3d7ee7d41ad2b3274db6bfc7ea"
+    }
+  }
+}

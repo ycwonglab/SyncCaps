@@ -1,0 +1,31 @@
+name: capsnet-deploy
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  # Python
+  - python=3.10
+
+  # Scientific Computing (from conda)
+  - numpy>=1.24.0,<2.0.0
+  - scipy>=1.10.0
+  - pandas>=2.0.0
+
+  # Pip for PyTorch installation
+  - pip
+
+  # Install via pip (better CUDA 11.8 support)
+  - pip:
+    # PyTorch with CUDA 11.8 from official PyTorch repo
+    - torch==2.0.1
+    - torchvision==0.15.2
+    - --extra-index-url https://download.pytorch.org/whl/cu118
+    # Other dependencies
+    - opencv-python>=4.8.0
+    - matplotlib>=3.7.0
+    - seaborn>=0.13.0
+    - scikit-learn>=1.3.0
+    - tqdm>=4.67.0
+    - pillow>=10.0.0
+    - pyyaml>=6.0
