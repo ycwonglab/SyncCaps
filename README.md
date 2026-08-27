@@ -214,8 +214,32 @@ artifacts** — everything needed to read the package correctly is in this READM
 and in `environment/system-info.txt`. You do not need to read it to evaluate the
 work.
 
+## Archive and persistent identifier
+
+A Zenodo DOI has been **reserved** for this package:
+
+```
+10.5281/zenodo.22131664
+```
+
+**It does not resolve yet.** Zenodo lets you reserve a DOI on a draft
+deposition so it can be cited *inside* the artifact being deposited; the DOI is
+only registered when that deposition is published. As of the last check, all
+three registries return 404:
+
+```bash
+python provenance/check_doi.py     # exit 0 = minted, 1 = reserved only
+```
+
+Until that deposition is published, **the GitHub release is the only public
+archive, and it is versioned but mutable** — tags can be moved and assets
+replaced, and both have happened during preparation. Do not describe this
+package as having an immutable archive, and do not cite the DOI as resolvable,
+until `check_doi.py` exits 0.
+
 ## License and citation
 
 Code is released under the MIT license (`LICENSE`). UCF101 and UCF-11 are
 distributed by their original providers under their own terms and are not
-redistributed here. See `CITATION.cff`.
+redistributed here. See `CITATION.cff`, which carries the reserved DOI and the
+release version.
