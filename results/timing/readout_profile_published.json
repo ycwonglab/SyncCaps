@@ -1,0 +1,74 @@
+{
+ "B0_linear": {
+  "p50_ms": 1.8518684955779463,
+  "p95_ms": 2.309450996108353,
+  "mean_ms": 1.9166913989465684,
+  "peak_act_MiB": 15.314453125,
+  "head_params": 232805,
+  "trainable_params": 1024357,
+  "head_width": null
+ },
+ "B1_sync": {
+  "p50_ms": 4.195910005364567,
+  "p95_ms": 4.941969993524253,
+  "mean_ms": 4.136812859505881,
+  "peak_act_MiB": 15.2568359375,
+  "head_params": 208997,
+  "trainable_params": 1000549,
+  "head_width": 2048
+ },
+ "B4_syncnorm": {
+  "p50_ms": 5.640624513034709,
+  "p95_ms": 6.880288012325764,
+  "mean_ms": 5.6094645711709745,
+  "peak_act_MiB": 15.2568359375,
+  "head_params": 208997,
+  "trainable_params": 1000549,
+  "head_width": 2048
+ },
+ "B4_gram": {
+  "p50_ms": 5.851449503097683,
+  "p95_ms": 6.741983990650624,
+  "mean_ms": 5.710466660675593,
+  "peak_act_MiB": 15.2568359375,
+  "head_params": 206949,
+  "trainable_params": 998501,
+  "head_width": 2048
+ },
+ "CB_tsketch": {
+  "p50_ms": 6.096139011788182,
+  "p95_ms": 7.998793007573113,
+  "mean_ms": 6.277306820265949,
+  "peak_act_MiB": 15.2763671875,
+  "head_params": 206949,
+  "trainable_params": 998501,
+  "head_width": 2048
+ },
+ "LR_bilinear": {
+  "p50_ms": 4.566495990729891,
+  "p95_ms": 5.817447003209963,
+  "mean_ms": 4.757172348327003,
+  "peak_act_MiB": 15.83154296875,
+  "head_params": 357637,
+  "trainable_params": 1149189,
+  "head_width": 2080
+ },
+ "R3_route": {
+  "p50_ms": 10.032297010184266,
+  "p95_ms": 12.207855994347483,
+  "mean_ms": 10.191170978941955,
+  "peak_act_MiB": 28.76953125,
+  "head_params": 3723264,
+  "trainable_params": 4514816,
+  "head_width": null
+ },
+ "_meta": {
+  "device": "NVIDIA GeForce RTX 4070 Laptop GPU",
+  "torch": "2.7.1+cu118",
+  "bs": 1,
+  "frames": 16,
+  "iters": 100,
+  "stem": "clip_b32",
+  "note": "readout path only; frozen stem served from feature cache"
+ }
+}

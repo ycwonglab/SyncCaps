@@ -1,0 +1,37 @@
+{
+  "experiment": "exploratory reconstruction probe (frozen SyncCaps)",
+  "checkpoint": "checkpoints/synccaps_ucf11_conv4_B1_sync_seed42.pt",
+  "checkpoint_test_acc_certain": 85.47717842323651,
+  "dataset": "UCF-11, 16 frames @5fps, S3 split (seed=42)",
+  "target": "64x64 RGB, denormalized to [0,1]",
+  "decoder_epochs": 4,
+  "train_clips": 1119,
+  "test_clips": 241,
+  "stages": {
+    "stem_pre_caps_norm": {
+      "feat_shape": [
+        256,
+        3,
+        3
+      ],
+      "granularity": "per-frame",
+      "test_mse": 0.027837734499412948,
+      "test_psnr_db": 15.553661115341207
+    },
+    "primary_caps_z_t": {
+      "feat_dim": 2304,
+      "granularity": "per-frame",
+      "test_mse": 0.03316486575853281,
+      "test_psnr_db": 14.793217562563461
+    },
+    "sync_class_evidence": {
+      "feat_dim": 1024,
+      "granularity": "per-clip",
+      "target_frame": 8,
+      "test_mse": 0.03402892217287384,
+      "test_psnr_db": 14.681518064665307
+    }
+  },
+  "error_maps": "per-pixel RGB-MSE, shared color scale (vmax=0.7986) across stages",
+  "note": "Exploratory probe for the SyncCaps TCSVT paper. Small decoders (interp+conv upsampler; vector stages prepend a linear adapter) trained 4 epochs, MSE, TRAIN split only; evaluated on TEST. Stem/primary are per-frame; the sync (class-evidence) stage decodes the per-clip final-tick sync vector to the temporally-central frame (frame 8) -- SyncCaps is routing-free so sync is the digit-capsule analog. Per-frame reconstruction from a per-clip aggregate is deliberately ill-posed; a class-prototype-like blur is expected and is the informative result (cf. Sabour et al. digit-capsule prototypes)."
+}

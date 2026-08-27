@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this code or these artifacts, please cite the SyncCaps manuscript."
+title: "SyncCaps: pairwise-synchronisation capsule readouts for video activity recognition"
+abstract: >-
+  Experiment package for the SyncCaps manuscript: model and training code,
+  per-experiment configurations, materialised dataset splits, exact pair
+  dictionaries, seed-level results, per-clip prediction dumps, statistical
+  analyses and figure provenance.
+type: software
+authors:
+  - name: "ycwonglab"
+repository-code: "https://github.com/ycwonglab/SyncCaps"
+license: MIT
+keywords:
+  - activity recognition
+  - capsule networks
+  - second-order pooling
+  - UCF101
+  - reproducibility

@@ -1,0 +1,104 @@
+{
+  "experiment_id": "ucf101_resnet_ptfz_official1_noval_fc__R3_route",
+  "arm": "R3_route",
+  "family": "routing",
+  "source_results_file": "synccaps_ucf101_resnet_ptfz_official1_noval_fc_R3_route.json",
+  "dataset": "ucf101",
+  "backbone": "resnet",
+  "extraction_layer": "ResNet-18 layer4 output, 1x1 conv -> out_ch",
+  "pretrained": true,
+  "freeze_stem": true,
+  "frozen_feature_cache": true,
+  "out_ch": 256,
+  "split": {
+    "protocol": "_official1_noval",
+    "files": {
+      "train": {
+        "file": "ucf101_official1_noval_train.txt",
+        "n_clips": 9537,
+        "sha256": "332dc7176b7bcba2a965e591b9ce3a72d81f4b961b5a0ba1cbddd3b3e3f9347c"
+      },
+      "val": {
+        "file": "ucf101_official1_noval_val.txt",
+        "n_clips": 0,
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "test": {
+        "file": "ucf101_official1_noval_test.txt",
+        "n_clips": 3783,
+        "sha256": "e94ae4ae9f65daadfd1bb642b35d6a36c80d40475250c0692d841ebf57a35421"
+      }
+    }
+  },
+  "learning_rate": 0.001,
+  "differential_lr": false,
+  "backbone_lr": null,
+  "optimizer_seeds": [
+    7,
+    19,
+    42,
+    101,
+    1337,
+    2026
+  ],
+  "pair_dictionary": {
+    "n_synch": 2048,
+    "n_self": 64,
+    "pair_seed": 0,
+    "exclude_self": false,
+    "file": "pair_indices/pairs_ns2048_nself64_pair0.npz"
+  },
+  "sync_normalisation": "none",
+  "decay": "learned per-pair rho, r = exp(-rho)",
+  "frame_order": "native",
+  "route_w_scale": 20.0,
+  "epoch_selection": "final epoch (no validation set)",
+  "trainable_parameters": "readout head only",
+  "protocol": {
+    "optimizer": "Adam",
+    "weight_decay": 0.0001,
+    "lr_schedule": "linear warmup 3 epochs, then cosine decay to 0",
+    "warmup_epochs": 3,
+    "epochs": 12,
+    "batch_size": 4,
+    "frames_per_clip": 16,
+    "sample_fps": 5.0,
+    "frame_size": [
+      224,
+      224
+    ],
+    "clip_policy": "single window at clip_start=0.0 unless multi-clip eval",
+    "augment": false,
+    "n_ticks": 16,
+    "certainty_threshold_theta": 0.5,
+    "primary_caps": {
+      "caps_grid": 3,
+      "n_caps_types": 32,
+      "caps_dim": 8,
+      "d_model": 2304
+    },
+    "routing_iterations": {
+      "R3_route": 3,
+      "_other_arms": 0
+    },
+    "SYNC_FROZEN_BN_TRAIN": "0 (unset) - frozen stems keep BatchNorm in eval mode; asserted on every .train() call",
+    "eval_policy": {
+      "test_acc_certain": "argmax over all T ticks by certainty; NON-causal",
+      "test_acc_final": "logits at the final tick",
+      "test_acc_hybrid": "prefix-mean logits with theta=0.5 early exit; CAUSAL, and the only source of mean_exit_tick"
+    }
+  },
+  "multiclip_eval": {
+    "n_views": 3,
+    "aggregation": "mean of per-view logits",
+    "batch_size": 4
+  },
+  "checkpoints": [
+    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_R3_route_seed7.pt",
+    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_R3_route_seed19.pt",
+    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_R3_route_seed42.pt",
+    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_R3_route_seed101.pt",
+    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_R3_route_seed1337.pt",
+    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_R3_route_seed2026.pt"
+  ]
+}

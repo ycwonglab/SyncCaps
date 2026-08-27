@@ -1,0 +1,23 @@
+# SyncCaps - exact versions used for every reported run.
+# Generated from the environment that produced
+# results/seed_summaries/seed_level_results.csv.
+#
+# torch is pinned to the version actually used (2.7.1+cu118). An earlier
+# requirements file in the development tree pinned torch<2.5.0; that pin
+# was stale and did not describe any reported run.
+#
+# Install torch/torchvision from the cu118 index:
+#   pip install torch==2.7.1 torchvision==0.22.1 \
+#       --index-url https://download.pytorch.org/whl/cu118
+
+torch==2.7.1+cu118
+torchvision==0.22.1+cu118
+numpy==2.1.2
+scipy==1.17.0
+opencv-python==4.11.0.86
+scikit-learn==1.8.0
+matplotlib==3.10.3
+seaborn==0.13.2
+tqdm==4.67.1
+pandas==3.0.0
+pillow==11.0.0

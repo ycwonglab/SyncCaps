@@ -1,0 +1,46 @@
+SyncCaps - system and environment record
+generated: 2026-08-27T12:51:33Z
+
+## Source revision
+git commit : 5f174669d96ac2957ce4787653c1df4270f18b02
+git branch : prototype/p0-landmark-headroom
+note       : all final runs in results/seed_summaries/seed_level_results.csv
+             were produced from this working tree. The frozen-BatchNorm
+             correction (the '_fc' tag in every experiment id) is included.
+
+## Operating system
+Linux MSI 5.15.167.4-microsoft-standard-WSL2 #1 SMP Tue Nov 5 00:21:55 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux
+wsl        : Linux version 5.15.167.4-microsoft-standard-WSL2 (root@f9c826d3017f) (gcc (GCC) 11.2.0, GNU ld (GNU Binutils) 2.37) #1 SMP Tue Nov 5 00:21:55 UTC 2024
+distro     : Ubuntu 24.04.2 LTS
+
+## CPU / RAM
+cpu        : model name	: Intel(R) Core(TM) i9-14900HX
+cores      : 4
+ram        : 7.8Gi
+
+## GPU
+gpu        : NVIDIA GeForce RTX 4070 Laptop GPU, 8188 MiB, 566.14
+
+## Python / PyTorch / CUDA
+python     : 3.13.2
+torch      : 2.7.1+cu118
+cuda (torch): 11.8
+cudnn      : 90100
+cuda avail : True
+tf32 matmul: False
+tf32 cudnn : True
+
+## Nondeterminism notes
+- TF32 is enabled by default on Ada GPUs for cuDNN convolutions. The frozen-stem
+  feature cache was validated against full forward passes at ~1.2e-3 absolute
+  difference, which is the TF32 convolution floor, not a logic error.
+- Using the cached frozen-stem features shifts the RNG stream relative to a full
+  frame-by-frame run, so cached and uncached runs of the SAME seed are close but
+  not bit-identical. Every reported comparison is internally consistent: all arms
+  in a table were run under the same caching mode.
+- B3_shuffle consumes RNG inside its forward pass to permute frames. Re-scoring a
+  B3_shuffle checkpoint under a different RNG stream can move exactly one clip of
+  3,783 (0.0264 accuracy points); this is visible in the `single_view_drift`
+  column of the seed-level CSV and affects no other arm.
+- torch.use_deterministic_algorithms() is NOT set. Runs are seeded and
+  reproducible to within the tolerances above, not bitwise across machines.

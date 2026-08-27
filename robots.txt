@@ -1,5 +1,0 @@
-# Unlisted while the manuscript is under review.
-# The record is meant to be reachable by direct URL (reviewers, editors) but not
-# discoverable through web search. Delete this file after acceptance to allow indexing.
-User-agent: *
-Disallow: /

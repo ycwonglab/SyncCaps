@@ -1,0 +1,134 @@
+{
+  "experiment_id": "ucf101_clip_b32_ptfz_fc__B1_sync",
+  "arm": "B1_sync",
+  "family": "clip",
+  "source_results_file": "synccaps_ucf101_clip_b32_ptfz_fc_B0_linear-B1_sync-B4_syncnorm.json",
+  "dataset": "ucf101",
+  "backbone": "clip_b32",
+  "extraction_layer": "CLIP ViT-B/32 final patch tokens, 1x1 conv -> out_ch",
+  "pretrained": true,
+  "freeze_stem": true,
+  "frozen_feature_cache": true,
+  "out_ch": 256,
+  "split": {
+    "protocol": "seeded",
+    "per_seed_files": {
+      "7": {
+        "train": {
+          "file": "ucf101_seeded_seed7_train.txt",
+          "n_clips": 9500,
+          "sha256": "f69f354c29009a5e0c3fac6bf6e56941bec1dbfba7332eba2ef877a241ac0531"
+        },
+        "val": {
+          "file": "ucf101_seeded_seed7_val.txt",
+          "n_clips": 1908,
+          "sha256": "3aa2490ca239b496ba1399723e1bcafaba27670394af9396b9178fb149fbeb6c"
+        },
+        "test": {
+          "file": "ucf101_seeded_seed7_test.txt",
+          "n_clips": 1912,
+          "sha256": "949f971865ea7c2713f004bc531c481d443642c33246a5ae7491b4199ec97b84"
+        }
+      },
+      "42": {
+        "train": {
+          "file": "ucf101_seeded_seed42_train.txt",
+          "n_clips": 9512,
+          "sha256": "7e87fd86301dbbb05af9b1a34a4f3defd65f6a0f9a7760f01aa86bcf4ed6d513"
+        },
+        "val": {
+          "file": "ucf101_seeded_seed42_val.txt",
+          "n_clips": 1903,
+          "sha256": "78d4950c63e148543be602aba810496499ed0199d49b78eb05ce6d89ec42e765"
+        },
+        "test": {
+          "file": "ucf101_seeded_seed42_test.txt",
+          "n_clips": 1905,
+          "sha256": "a8e2821498d3564504fad36f61765a838356cddd8d2562529aade8317b345919"
+        }
+      },
+      "1337": {
+        "train": {
+          "file": "ucf101_seeded_seed1337_train.txt",
+          "n_clips": 9518,
+          "sha256": "bc522a60d2c4b66ecd05b17de1c85b4af0e4887e03df1fee1710bebd4bb9e9ca"
+        },
+        "val": {
+          "file": "ucf101_seeded_seed1337_val.txt",
+          "n_clips": 1903,
+          "sha256": "b36184efa92764789e09c6668ee91f33763de237c89963bf530991e0ae93982b"
+        },
+        "test": {
+          "file": "ucf101_seeded_seed1337_test.txt",
+          "n_clips": 1899,
+          "sha256": "550441f769bd6f5d0e3fe3e00fd6fe33b9c16aeb653df39881ffb08be7688f05"
+        }
+      }
+    }
+  },
+  "learning_rate": 0.001,
+  "differential_lr": false,
+  "backbone_lr": null,
+  "optimizer_seeds": [
+    7,
+    42,
+    1337
+  ],
+  "pair_dictionary": {
+    "n_synch": 2048,
+    "n_self": 64,
+    "pair_seed": 0,
+    "exclude_self": false,
+    "file": "pair_indices/pairs_ns2048_nself64_pair0.npz"
+  },
+  "sync_normalisation": "none",
+  "decay": "learned per-pair rho, r = exp(-rho)",
+  "frame_order": "native",
+  "route_w_scale": null,
+  "epoch_selection": "best validation accuracy",
+  "trainable_parameters": "readout head only",
+  "protocol": {
+    "optimizer": "Adam",
+    "weight_decay": 0.0001,
+    "lr_schedule": "linear warmup 3 epochs, then cosine decay to 0",
+    "warmup_epochs": 3,
+    "epochs": 12,
+    "batch_size": 4,
+    "frames_per_clip": 16,
+    "sample_fps": 5.0,
+    "frame_size": [
+      224,
+      224
+    ],
+    "clip_policy": "single window at clip_start=0.0 unless multi-clip eval",
+    "augment": false,
+    "n_ticks": 16,
+    "certainty_threshold_theta": 0.5,
+    "primary_caps": {
+      "caps_grid": 3,
+      "n_caps_types": 32,
+      "caps_dim": 8,
+      "d_model": 2304
+    },
+    "routing_iterations": {
+      "R3_route": 3,
+      "_other_arms": 0
+    },
+    "SYNC_FROZEN_BN_TRAIN": "0 (unset) - frozen stems keep BatchNorm in eval mode; asserted on every .train() call",
+    "eval_policy": {
+      "test_acc_certain": "argmax over all T ticks by certainty; NON-causal",
+      "test_acc_final": "logits at the final tick",
+      "test_acc_hybrid": "prefix-mean logits with theta=0.5 early exit; CAUSAL, and the only source of mean_exit_tick"
+    }
+  },
+  "multiclip_eval": {
+    "n_views": 3,
+    "aggregation": "mean of per-view logits",
+    "batch_size": 4
+  },
+  "checkpoints": [
+    "synccaps_ucf101_clip_b32_ptfz_fc_B1_sync_seed7.pt",
+    "synccaps_ucf101_clip_b32_ptfz_fc_B1_sync_seed42.pt",
+    "synccaps_ucf101_clip_b32_ptfz_fc_B1_sync_seed1337.pt"
+  ]
+}

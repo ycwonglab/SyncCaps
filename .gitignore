@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.cache/
+# Model weights ship as GitHub Release assets, not in git history.
+# checkpoints/ keeps only its manifests.
+checkpoints/*.pt
+checkpoints/*.pth

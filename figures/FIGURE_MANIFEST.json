@@ -1,0 +1,96 @@
+{
+  "figure_checkpoint": {
+    "filename": "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_syncnorm_seed42.pt",
+    "sha256": "3e0705662a9350f6b533a2d40f3bf8a8c53b39794e8a89e83f5e47f457c01b80",
+    "bytes": 3254319,
+    "experiment_id": "ucf101_resnet_ptfz_official1_noval_fc__B4_syncnorm",
+    "config": "configs/resnet18/ucf101_resnet_ptfz_official1_noval_fc__B4_syncnorm.json",
+    "optimizer_seed": 42
+  },
+  "exact_command": "PYTHONPATH=. python figures/scripts/make_tick_strategy_figure.py figures/rendered",
+  "other_figure_commands": [
+    "PYTHONPATH=. python figures/scripts/make_neuron_dynamics_figure.py",
+    "PYTHONPATH=. python figures/scripts/make_activity_web_grid_peaktick.py",
+    "SYNCCAPS_FIG_CFG=legacy PYTHONPATH=. python figures/scripts/make_neuron_dynamics_figure.py   # superseded config"
+  ],
+  "header_checks": {
+    "accuracy_header_pct": {
+      "expected": 71.8,
+      "measured": 71.8213,
+      "source": "results/seed_summaries/seed_level_results.csv (single_view_acc_certain)",
+      "agrees": true
+    },
+    "mean_exit_tick": {
+      "expected": 11.1,
+      "measured": 11.0965,
+      "source": "results/seed_summaries/seed_level_results.csv (mean_exit_tick, hybrid policy)",
+      "agrees": true
+    },
+    "median_memory_exp_neg_rho": {
+      "expected": 0.809,
+      "measured": 0.8093,
+      "source": "exp(-sync.rho) of the figure checkpoint",
+      "agrees": true
+    },
+    "exit_tick_distribution": {
+      "expected_pct_exit_at_tick_1": 26,
+      "expected_pct_run_full_budget": 64,
+      "measured_pct_exit_at_tick_1": null,
+      "measured_pct_run_full_budget": null,
+      "source": "printed by figures/scripts/make_tick_strategy_figure.py; needs per-tick logits, which the prediction dumps do not store",
+      "agrees": null
+    }
+  },
+  "inputs": [
+    "dyn_basketball.npz",
+    "dyn_diving.npz",
+    "eval_headline_b1_seed42.json",
+    "eval_ucf11_b1_seed42.json",
+    "reconstruction_probes.json",
+    "tick_strategy_ucf11.json",
+    "training_curves_b0_b1_ucf11.json"
+  ],
+  "rendered": [
+    "confusion_matrix_ucf11.png",
+    "fig_dynamics_by_decay_basketball.pdf",
+    "fig_dynamics_by_decay_basketball.png",
+    "fig_dynamics_by_decay_diving.pdf",
+    "fig_dynamics_by_decay_diving.png",
+    "fig_fixedmap_perframe_basketball.pdf",
+    "fig_fixedmap_perframe_basketball.png",
+    "fig_fixedmap_perframe_diving.pdf",
+    "fig_fixedmap_perframe_diving.png",
+    "fig_neuron_dynamics_basketball.pdf",
+    "fig_neuron_dynamics_basketball.png",
+    "fig_neuron_dynamics_diving.pdf",
+    "fig_neuron_dynamics_diving.png",
+    "fig_sync_overlay_basketball.pdf",
+    "fig_sync_overlay_basketball.png",
+    "fig_sync_overlay_diving.pdf",
+    "fig_sync_overlay_diving.png",
+    "fig_sync_web_activities.pdf",
+    "fig_sync_web_activities.png",
+    "fig_sync_web_activities_peaktick.pdf",
+    "fig_sync_web_activities_peaktick.png",
+    "fig_sync_web_activities_peaktick_ucf101.pdf",
+    "fig_sync_web_activities_peaktick_ucf101.png",
+    "fig_sync_web_basketball.pdf",
+    "fig_sync_web_basketball.png",
+    "fig_sync_web_diving.pdf",
+    "fig_sync_web_diving.png",
+    "fig_tick_strategy_ucf101.pdf",
+    "fig_tick_strategy_ucf101.png",
+    "figure1_synccaps.pdf",
+    "figure1_synccaps.png",
+    "mermaid-diagram-1784285301462.pdf",
+    "per_class_accuracy_ucf11.png",
+    "per_class_over_models_ucf11.png",
+    "per_tick_accuracy_ucf11.png",
+    "reconstruction_probes_ucf11.png",
+    "shuffle_per_tick_ucf11.png",
+    "sync_dynamics_ucf11.png",
+    "tick_strategy_ucf11.png",
+    "training_curves_b0_b1_ucf11.png"
+  ],
+  "note": "Figures were regenerated on the frozen-BatchNorm-corrected checkpoint. Artifacts drawn on the pre-correction checkpoint (accuracy 70.10 rather than 71.82) are superseded."
+}

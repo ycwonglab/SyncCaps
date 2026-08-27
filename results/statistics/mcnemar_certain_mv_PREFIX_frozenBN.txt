@@ -1,0 +1,108 @@
+policy = certain_mv (3 clips x 1 crop), seeds [42, 1337, 7]
+
+available arms:
+  frozen/B0_linear         acc  64.82  (per seed 64.76, 64.23, 65.45)
+  frozen/B1_sync           acc  66.16  (per seed 65.85, 65.34, 67.27)
+  frozen/B4_syncnorm       acc  71.42  (per seed 71.79, 71.19, 71.27)
+  frozen/B4_gram           acc  71.69  (per seed 71.40, 71.79, 71.87)
+  finetuned/B0_linear      acc  69.60  (per seed 69.36, 70.00, 69.44)
+  finetuned/B4_syncnorm    acc  71.83  (per seed 71.58, 71.79, 72.11)
+
+--- readout on frozen features (B4-B0) ---
+    frozen/B4_syncnorm  minus  frozen/B0_linear
+  seed-level  n=3    +6.60 +/- 0.68  (3/3)  p=0.004
+  clip-level  McNemar (exact binomial on discordant pairs), per seed:
+      seed 42    A-only  461 | B-only  195 | discordant  656 | p=9.12e-26 ***
+      seed 1337  A-only  426 | B-only  163 | discordant  589 | p=4.46e-28 ***
+      seed 7     A-only  433 | B-only  213 | discordant  646 | p=3.28e-18 ***
+  clip-level  bootstrap (100,000 resamples of 3783 clips), seed-averaged:
+      diff +6.60   95% CI [+5.67, +7.52]   p<1e-05   (analytic SE 0.47)
+  clip-level  TOST vs +/-1.0 pt: 90% CI [+5.82, +7.38]  p_TOST=1.00e+00  -> NOT shown equivalent within +/-1.0
+
+--- fine-tuning helps the linear probe ---
+    finetuned/B0_linear  minus  frozen/B0_linear
+  seed-level  n=3    +4.78 +/- 0.90  (3/3)  p=0.012
+  clip-level  McNemar (exact binomial on discordant pairs), per seed:
+      seed 42    A-only  438 | B-only  264 | discordant  702 | p=5.29e-11 ***
+      seed 1337  A-only  438 | B-only  220 | discordant  658 | p=1.36e-17 ***
+      seed 7     A-only  438 | B-only  287 | discordant  725 | p=2.27e-08 ***
+  clip-level  bootstrap (100,000 resamples of 3783 clips), seed-averaged:
+      diff +4.78   95% CI [+3.82, +5.74]   p<1e-05   (analytic SE 0.49)
+  clip-level  TOST vs +/-1.0 pt: 90% CI [+3.98, +5.58]  p_TOST=1.00e+00  -> NOT shown equivalent within +/-1.0
+
+--- HEADLINE: frozen readout vs fine-tuned linear ---
+    frozen/B4_syncnorm  minus  finetuned/B0_linear
+  seed-level  n=3    +1.82 +/- 0.62  (3/3)  p=0.037
+  clip-level  McNemar (exact binomial on discordant pairs), per seed:
+      seed 42    A-only  354 | B-only  262 | discordant  616 | p=2.40e-04 ***
+      seed 1337  A-only  340 | B-only  295 | discordant  635 | p=8.07e-02 ns
+      seed 7     A-only  361 | B-only  292 | discordant  653 | p=7.74e-03 **
+  clip-level  bootstrap (100,000 resamples of 3783 clips), seed-averaged:
+      diff +1.82   95% CI [+0.84, +2.79]   p=1.80e-04   (analytic SE 0.50)
+  clip-level  TOST vs +/-1.0 pt: 90% CI [+1.00, +2.64]  p_TOST=9.49e-01  -> NOT shown equivalent within +/-1.0
+
+--- fine-tuning ON TOP of the readout ---
+    finetuned/B4_syncnorm  minus  frozen/B4_syncnorm
+  seed-level  n=3    +0.41 +/- 0.55  (2/3)  p=0.325
+  clip-level  McNemar (exact binomial on discordant pairs), per seed:
+      seed 42    A-only  355 | B-only  363 | discordant  718 | p=7.94e-01 ns
+      seed 1337  A-only  354 | B-only  331 | discordant  685 | p=4.01e-01 ns
+      seed 7     A-only  360 | B-only  328 | discordant  688 | p=2.37e-01 ns
+  clip-level  bootstrap (100,000 resamples of 3783 clips), seed-averaged:
+      diff +0.41   95% CI [-0.67, +1.49]   p=4.57e-01   (analytic SE 0.55)
+  clip-level  TOST vs +/-1.0 pt: 90% CI [-0.49, +1.31]  p_TOST=1.44e-01  -> NOT shown equivalent within +/-1.0
+
+--- raw sync statistic (B1-B0) ---
+    frozen/B1_sync  minus  frozen/B0_linear
+  seed-level  n=3    +1.34 +/- 0.42  (3/3)  p=0.031
+  clip-level  McNemar (exact binomial on discordant pairs), per seed:
+      seed 42    A-only  320 | B-only  279 | discordant  599 | p=1.02e-01 ns
+      seed 1337  A-only  302 | B-only  260 | discordant  562 | p=8.36e-02 ns
+      seed 7     A-only  344 | B-only  275 | discordant  619 | p=6.23e-03 **
+  clip-level  bootstrap (100,000 resamples of 3783 clips), seed-averaged:
+      diff +1.34   95% CI [+0.54, +2.13]   p=1.04e-03   (analytic SE 0.41)
+  clip-level  TOST vs +/-1.0 pt: 90% CI [+0.67, +2.01]  p_TOST=7.96e-01  -> NOT shown equivalent within +/-1.0
+
+--- normalisation (B4-B1) ---
+    frozen/B4_syncnorm  minus  frozen/B1_sync
+  seed-level  n=3    +5.26 +/- 1.10  (3/3)  p=0.014
+  clip-level  McNemar (exact binomial on discordant pairs), per seed:
+      seed 42    A-only  428 | B-only  203 | discordant  631 | p=1.98e-19 ***
+      seed 1337  A-only  396 | B-only  175 | discordant  571 | p=1.10e-20 ***
+      seed 7     A-only  389 | B-only  238 | discordant  627 | p=1.76e-09 ***
+  clip-level  bootstrap (100,000 resamples of 3783 clips), seed-averaged:
+      diff +5.26   95% CI [+4.31, +6.21]   p<1e-05   (analytic SE 0.48)
+  clip-level  TOST vs +/-1.0 pt: 90% CI [+4.47, +6.05]  p_TOST=1.00e+00  -> NOT shown equivalent within +/-1.0
+
+--- rho=0 freeze: does the learned decay buy anything? ---
+    frozen/B4_gram  minus  frozen/B4_syncnorm
+  seed-level  n=3    +0.27 +/- 0.58  (2/3)  p=0.500
+  clip-level  McNemar (exact binomial on discordant pairs), per seed:
+      seed 42    A-only  108 | B-only  123 | discordant  231 | p=3.57e-01 ns
+      seed 1337  A-only  140 | B-only  117 | discordant  257 | p=1.70e-01 ns
+      seed 7     A-only  139 | B-only  116 | discordant  255 | p=1.68e-01 ns
+  clip-level  bootstrap (100,000 resamples of 3783 clips), seed-averaged:
+      diff +0.27   95% CI [-0.22, +0.77]   p=2.76e-01   (analytic SE 0.25)
+  clip-level  TOST vs +/-1.0 pt: 90% CI [-0.14, +0.69]  p_TOST=1.74e-03  -> EQUIVALENT within +/-1.0
+
+====================================================================================================
+SUMMARY   Bonferroni over the 4 planned comparisons: alpha = 0.0125
+====================================================================================================
+comparison                                         diff   seed p         clip 95% CI     clip p  verdict
+readout on frozen features (B4-B0)                +6.60    0.004   [+5.67,+7.52]     <1e-05  SURVIVES Bonferroni
+fine-tuning helps the linear probe                +4.78    0.012   [+3.82,+5.74]     <1e-05  SURVIVES Bonferroni
+HEADLINE: frozen readout vs fine-tuned linear     +1.82    0.037   [+0.84,+2.79]      2e-04  SURVIVES Bonferroni
+fine-tuning ON TOP of the readout                 +0.41    0.325   [-0.67,+1.49]      5e-01  below threshold
+raw sync statistic (B1-B0)                        +1.34    0.031   [+0.54,+2.13]      1e-03  SURVIVES Bonferroni
+normalisation (B4-B1)                             +5.26    0.014   [+4.31,+6.21]     <1e-05  SURVIVES Bonferroni
+rho=0 freeze: does the learned decay buy anythi   +0.27    0.500   [-0.22,+0.77]      3e-01  below threshold
+
+"<" marks a bootstrap p at its resolution floor (1/n_boot): no resample
+crossed zero, so the value is a BOUND, not an estimate. Quote it as "<".
+
+Rows beyond the first four were not in the planned family; the Bonferroni
+label is applied to them anyway, which is conservative, not correct-by-design.
+
+Read the two p-columns as different questions, not as a consistency check:
+  seed p = do the METHODS differ over training randomness (n=3, weak).
+  clip p = do THESE MODELS differ over clips (n=3783, strong, conditions on seeds).

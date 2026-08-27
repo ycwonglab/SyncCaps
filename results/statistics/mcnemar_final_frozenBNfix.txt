@@ -1,0 +1,147 @@
+[cluster] 3783 test clips -> 707 source-video groups
+
+policy = final_mv (3 clips x 1 crop), seeds [42, 1337, 7]
+
+available arms:
+  frozen/B0_linear         acc  63.90  (per seed 63.86, 63.92, 63.92)
+  frozen/B1_sync           acc  67.80  (per seed 68.20, 67.20, 68.01)
+  frozen/B4_syncnorm       acc  72.22  (per seed 72.75, 72.30, 71.61)
+  frozen/B4_gram           acc  73.71  (per seed 74.17, 73.62, 73.33)
+  frozen/B3_shuffle        acc  68.59  (per seed 68.33, 67.96, 69.47)
+  finetuned/B0_linear      acc  66.46  (per seed 65.87, 67.27, 66.24)
+  finetuned/B4_syncnorm    acc  71.64  (per seed 71.90, 71.50, 71.50)
+
+--- readout on frozen features (B4-B0) ---
+    frozen/B4_syncnorm  minus  frozen/B0_linear
+  seed-level  n=3    +8.32 +/- 0.60  (3/3)  p=0.002
+  clip-level  McNemar (exact binomial on discordant pairs), per seed:
+      seed 42    A-only  508 | B-only  172 | discordant  680 | p=2.20e-39 ***
+      seed 1337  A-only  475 | B-only  158 | discordant  633 | p=9.08e-38 ***
+      seed 7     A-only  475 | B-only  184 | discordant  659 | p=1.45e-30 ***
+  clip-level  bootstrap (100,000 resamples of 3783 clips), seed-averaged:
+      diff +8.32   95% CI [+7.29, +9.35]   p<1e-05   (analytic SE 0.53)
+  clip-level  TOST vs +/-1.0 pt: 90% CI [+7.46, +9.18]  p_TOST=1.00e+00  -> NOT shown equivalent within +/-1.0
+  GROUP-level bootstrap (100,000 resamples of 707 source videos), seed-averaged:
+      diff +8.32   95% CI [+6.60, +10.07]   p=0.00e+00
+  GROUP-level TOST vs +/-1.0 pt: 90% CI [+6.87, +9.78]  p_TOST=1.00e+00  -> NOT shown equivalent within +/-1.0
+
+--- fine-tuning helps the linear probe ---
+    finetuned/B0_linear  minus  frozen/B0_linear
+  seed-level  n=3    +2.56 +/- 0.70  (3/3)  p=0.024
+  clip-level  McNemar (exact binomial on discordant pairs), per seed:
+      seed 42    A-only  402 | B-only  326 | discordant  728 | p=5.41e-03 **
+      seed 1337  A-only  434 | B-only  307 | discordant  741 | p=3.49e-06 ***
+      seed 7     A-only  423 | B-only  335 | discordant  758 | p=1.56e-03 **
+  clip-level  bootstrap (100,000 resamples of 3783 clips), seed-averaged:
+      diff +2.56   95% CI [+1.53, +3.60]   p<1e-05   (analytic SE 0.53)
+  clip-level  TOST vs +/-1.0 pt: 90% CI [+1.70, +3.43]  p_TOST=9.98e-01  -> NOT shown equivalent within +/-1.0
+  GROUP-level bootstrap (100,000 resamples of 707 source videos), seed-averaged:
+      diff +2.56   95% CI [+0.75, +4.41]   p=5.86e-03
+  GROUP-level TOST vs +/-1.0 pt: 90% CI [+1.04, +4.11]  p_TOST=9.54e-01  -> NOT shown equivalent within +/-1.0
+
+--- HEADLINE: frozen readout vs fine-tuned linear ---
+    frozen/B4_syncnorm  minus  finetuned/B0_linear
+  seed-level  n=3    +5.75 +/- 0.98  (3/3)  p=0.010
+  clip-level  McNemar (exact binomial on discordant pairs), per seed:
+      seed 42    A-only  501 | B-only  241 | discordant  742 | p=7.39e-22 ***
+      seed 1337  A-only  449 | B-only  259 | discordant  708 | p=8.97e-13 ***
+      seed 7     A-only  479 | B-only  276 | discordant  755 | p=1.41e-13 ***
+  clip-level  bootstrap (100,000 resamples of 3783 clips), seed-averaged:
+      diff +5.75   95% CI [+4.67, +6.84]   p<1e-05   (analytic SE 0.55)
+  clip-level  TOST vs +/-1.0 pt: 90% CI [+4.86, +6.66]  p_TOST=1.00e+00  -> NOT shown equivalent within +/-1.0
+  GROUP-level bootstrap (100,000 resamples of 707 source videos), seed-averaged:
+      diff +5.75   95% CI [+3.87, +7.64]   p=0.00e+00
+  GROUP-level TOST vs +/-1.0 pt: 90% CI [+4.18, +7.35]  p_TOST=1.00e+00  -> NOT shown equivalent within +/-1.0
+
+--- fine-tuning ON TOP of the readout ---
+    finetuned/B4_syncnorm  minus  frozen/B4_syncnorm
+  seed-level  n=3    -0.58 +/- 0.41  (0/3)  p=0.135
+  clip-level  McNemar (exact binomial on discordant pairs), per seed:
+      seed 42    A-only  351 | B-only  383 | discordant  734 | p=2.53e-01 ns
+      seed 1337  A-only  334 | B-only  364 | discordant  698 | p=2.72e-01 ns
+      seed 7     A-only  361 | B-only  365 | discordant  726 | p=9.11e-01 ns
+  clip-level  bootstrap (100,000 resamples of 3783 clips), seed-averaged:
+      diff -0.58   95% CI [-1.70, +0.55]   p=3.03e-01   (analytic SE 0.57)
+  clip-level  TOST vs +/-1.0 pt: 90% CI [-1.52, +0.35]  p_TOST=2.30e-01  -> NOT shown equivalent within +/-1.0
+  GROUP-level bootstrap (100,000 resamples of 707 source videos), seed-averaged:
+      diff -0.58   95% CI [-2.51, +1.35]   p=5.54e-01
+  GROUP-level TOST vs +/-1.0 pt: 90% CI [-2.21, +1.05]  p_TOST=3.37e-01  -> NOT shown equivalent within +/-1.0
+
+--- raw sync statistic (B1-B0) ---
+    frozen/B1_sync  minus  frozen/B0_linear
+  seed-level  n=3    +3.90 +/- 0.55  (3/3)  p=0.007
+  clip-level  McNemar (exact binomial on discordant pairs), per seed:
+      seed 42    A-only  377 | B-only  213 | discordant  590 | p=1.44e-11 ***
+      seed 1337  A-only  341 | B-only  217 | discordant  558 | p=1.72e-07 ***
+      seed 7     A-only  375 | B-only  220 | discordant  595 | p=2.17e-10 ***
+  clip-level  bootstrap (100,000 resamples of 3783 clips), seed-averaged:
+      diff +3.90   95% CI [+3.00, +4.81]   p<1e-05   (analytic SE 0.46)
+  clip-level  TOST vs +/-1.0 pt: 90% CI [+3.15, +4.67]  p_TOST=1.00e+00  -> NOT shown equivalent within +/-1.0
+  GROUP-level bootstrap (100,000 resamples of 707 source videos), seed-averaged:
+      diff +3.90   95% CI [+2.42, +5.40]   p=0.00e+00
+  GROUP-level TOST vs +/-1.0 pt: 90% CI [+2.65, +5.17]  p_TOST=1.00e+00  -> NOT shown equivalent within +/-1.0
+
+--- normalisation (B4-B1) ---
+    frozen/B4_syncnorm  minus  frozen/B1_sync
+  seed-level  n=3    +4.41 +/- 0.76  (3/3)  p=0.010
+  clip-level  McNemar (exact binomial on discordant pairs), per seed:
+      seed 42    A-only  384 | B-only  212 | discordant  596 | p=1.75e-12 ***
+      seed 1337  A-only  387 | B-only  194 | discordant  581 | p=9.00e-16 ***
+      seed 7     A-only  370 | B-only  234 | discordant  604 | p=3.48e-08 ***
+  clip-level  bootstrap (100,000 resamples of 3783 clips), seed-averaged:
+      diff +4.41   95% CI [+3.41, +5.42]   p<1e-05   (analytic SE 0.51)
+  clip-level  TOST vs +/-1.0 pt: 90% CI [+3.58, +5.26]  p_TOST=1.00e+00  -> NOT shown equivalent within +/-1.0
+  GROUP-level bootstrap (100,000 resamples of 707 source videos), seed-averaged:
+      diff +4.41   95% CI [+2.61, +6.25]   p=0.00e+00
+  GROUP-level TOST vs +/-1.0 pt: 90% CI [+2.89, +5.96]  p_TOST=1.00e+00  -> NOT shown equivalent within +/-1.0
+
+--- rho=0 freeze: does the learned decay buy anything? ---
+    frozen/B4_gram  minus  frozen/B4_syncnorm
+  seed-level  n=3    +1.49 +/- 0.21  (3/3)  p=0.006
+  clip-level  McNemar (exact binomial on discordant pairs), per seed:
+      seed 42    A-only  168 | B-only  114 | discordant  282 | p=1.55e-03 **
+      seed 1337  A-only  143 | B-only   93 | discordant  236 | p=1.37e-03 **
+      seed 7     A-only  191 | B-only  126 | discordant  317 | p=3.11e-04 ***
+  clip-level  bootstrap (100,000 resamples of 3783 clips), seed-averaged:
+      diff +1.49   95% CI [+0.94, +2.04]   p<1e-05   (analytic SE 0.28)
+  clip-level  TOST vs +/-1.0 pt: 90% CI [+1.03, +1.95]  p_TOST=9.60e-01  -> NOT shown equivalent within +/-1.0
+  GROUP-level bootstrap (100,000 resamples of 707 source videos), seed-averaged:
+      diff +1.49   95% CI [+0.72, +2.28]   p=1.20e-04
+  GROUP-level TOST vs +/-1.0 pt: 90% CI [+0.85, +2.15]  p_TOST=8.94e-01  -> NOT shown equivalent within +/-1.0
+
+--- frame shuffling: does temporal order matter? ---
+    frozen/B1_sync  minus  frozen/B3_shuffle
+  seed-level  n=3    -0.78 +/- 0.66  (0/3)  p=0.176
+  clip-level  McNemar (exact binomial on discordant pairs), per seed:
+      seed 42    A-only  146 | B-only  151 | discordant  297 | p=8.17e-01 ns
+      seed 1337  A-only  133 | B-only  162 | discordant  295 | p=1.03e-01 ns
+      seed 7     A-only  122 | B-only  177 | discordant  299 | p=1.74e-03 **
+  clip-level  bootstrap (100,000 resamples of 3783 clips), seed-averaged:
+      diff -0.78   95% CI [-1.30, -0.26]   p=3.00e-03   (analytic SE 0.27)
+  clip-level  TOST vs +/-1.0 pt: 90% CI [-1.22, -0.34]  p_TOST=2.08e-01  -> NOT shown equivalent within +/-1.0
+  GROUP-level bootstrap (100,000 resamples of 707 source videos), seed-averaged:
+      diff -0.78   95% CI [-1.54, -0.04]   p=3.80e-02
+  GROUP-level TOST vs +/-1.0 pt: 90% CI [-1.41, -0.16]  p_TOST=2.87e-01  -> NOT shown equivalent within +/-1.0
+
+====================================================================================================
+SUMMARY   Bonferroni over the 4 planned comparisons: alpha = 0.0125
+====================================================================================================
+comparison                                         diff   seed p         clip 95% CI     clip p  verdict
+readout on frozen features (B4-B0)                +8.32    0.002   [+7.29,+9.35]     <1e-05  SURVIVES Bonferroni
+fine-tuning helps the linear probe                +2.56    0.024   [+1.53,+3.60]     <1e-05  SURVIVES Bonferroni
+HEADLINE: frozen readout vs fine-tuned linear     +5.75    0.010   [+4.67,+6.84]     <1e-05  SURVIVES Bonferroni
+fine-tuning ON TOP of the readout                 -0.58    0.135   [-1.70,+0.55]      3e-01  below threshold
+raw sync statistic (B1-B0)                        +3.90    0.007   [+3.00,+4.81]     <1e-05  SURVIVES Bonferroni
+normalisation (B4-B1)                             +4.41    0.010   [+3.41,+5.42]     <1e-05  SURVIVES Bonferroni
+rho=0 freeze: does the learned decay buy anythi   +1.49    0.006   [+0.94,+2.04]     <1e-05  SURVIVES Bonferroni
+frame shuffling: does temporal order matter?      -0.78    0.176   [-1.30,-0.26]      3e-03  SURVIVES Bonferroni
+
+"<" marks a bootstrap p at its resolution floor (1/n_boot): no resample
+crossed zero, so the value is a BOUND, not an estimate. Quote it as "<".
+
+Rows beyond the first four were not in the planned family; the Bonferroni
+label is applied to them anyway, which is conservative, not correct-by-design.
+
+Read the two p-columns as different questions, not as a consistency check:
+  seed p = do the METHODS differ over training randomness (n=3, weak).
+  clip p = do THESE MODELS differ over clips (n=3783, strong, conditions on seeds).
