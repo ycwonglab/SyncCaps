@@ -199,6 +199,14 @@ Stated plainly rather than omitted:
 
 ---
 
+## Provenance and audit trail
+
+`AUDIT_RESPONSE.md` records what an internal integrity audit asked for and what
+changed in response. It is a **process record, not documentation of these
+artifacts** — everything needed to read the package correctly is in this README
+and in `environment/system-info.txt`. You do not need to read it to evaluate the
+work.
+
 ## License and citation
 
 Code is released under the MIT license (`LICENSE`). UCF101 and UCF-11 are
