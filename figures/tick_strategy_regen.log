@@ -1,0 +1,10 @@
+# stdout of figures/scripts/make_tick_strategy_figure.py on the corrected
+# seed-42 checkpoint. This is the primary evidence for the exit-tick
+# distribution, which cannot be recovered from the prediction dumps
+# (they store per-clip predictions, not per-tick logits).
+# command: PYTHONPATH=. python figures/scripts/make_tick_strategy_figure.py figures/rendered
+
+[official split-1] train 9537 / val 0 / test 3783  (train+val 9537 vs official 9537; test vs official 3783)
+certain@16 71.82 | final@16 72.69 | hybrid@16 71.82
+mean exit 11.10 (BIMODAL: 26.0% at tick 1, 63.9% at tick 16) | e^-rho median 0.8093 min 0.5108 max 1.0000
+saved figures/rendered/fig_tick_strategy_ucf101 (.png/.pdf)

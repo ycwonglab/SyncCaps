@@ -190,8 +190,9 @@ def build(clip_path, action, out_path):
 
 if __name__ == "__main__":
     import sys
-    OUT = sys.argv[1] if len(sys.argv) > 1 else \
-        "/tmp/claude-1000/-mnt-d-vcode-capsnet/055c6e4e-57d8-4897-8586-30690bae85b5/scratchpad"
+    # Default output directory. This previously pointed at a scratch path on the
+    # authors' machine, which does not exist anywhere else; it is now repo-relative.
+    OUT = sys.argv[1] if len(sys.argv) > 1 else "figures/rendered"
     # UCF101 official split-1 TEST group, matching every other figure in the paper
     build("UCF101_full/Diving/v_Diving_g01_c01.avi", "Diving",
           f"{OUT}/fig_fixedmap_perframe_Diving")

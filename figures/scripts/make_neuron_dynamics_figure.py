@@ -7,7 +7,7 @@ on a real UCF-11 clip and captures, per internal tick t = 1..16:
                   paper argues IS the representation (SyncCaps section 3.3)
 Then draws a grid of random-colored single-unit traces, mirroring CTM Fig 2a.
 
-Usage:  python docs/paper/make_neuron_dynamics_figure.py [outdir]
+Usage:  python figures/scripts/make_neuron_dynamics_figure.py [outdir]
 """
 import glob, os, sys, cv2, numpy as np, torch
 import torch.nn.functional as F
@@ -34,7 +34,7 @@ CELL = 256          # neurons per 3x3 grid cell (d // 256 == cell, row-major)
 # B4_syncnorm, seed 42. The legacy config is kept selectable so the superseded
 # artefact can still be reproduced for the record rather than silently lost.
 #
-#   SYNCCAPS_FIG_CFG=legacy   python docs/paper/make_neuron_dynamics_figure.py
+#   SYNCCAPS_FIG_CFG=legacy   python figures/scripts/make_neuron_dynamics_figure.py
 #
 # The capsule geometry is IDENTICAL across configs -- caps_grid=3 and
 # PrimaryCaps(256,32,8) give d_model=2304 and CELL=256 for every stem -- so the

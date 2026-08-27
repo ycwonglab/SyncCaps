@@ -13,7 +13,7 @@ import matplotlib.colors as mcolors
 from matplotlib.cm import ScalarMappable
 from matplotlib.patches import FancyArrowPatch
 
-spec = importlib.util.spec_from_file_location("m", "docs/paper/make_neuron_dynamics_figure.py")
+spec = importlib.util.spec_from_file_location("m", "figures/scripts/make_neuron_dynamics_figure.py")
 m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 CELL, SIZE = m.CELL, m.SIZE
 INK, MUT = m.INK, m.MUT
@@ -106,10 +106,10 @@ def main():
              "arcs coloured by |sync| (activity), peak coupling in bold red",
              fontsize=11, ha="left", color=MUT)
     for ext in ("png", "pdf"):
-        fig.savefig(f"docs/paper/figures/fig_sync_web_activities.{ext}",
+        fig.savefig(f"figures/rendered/fig_sync_web_activities.{ext}",
                     dpi=200, facecolor="white", bbox_inches="tight", pad_inches=0.12)
     plt.close(fig)
-    print("saved docs/paper/figures/fig_sync_web_activities (.png/.pdf)")
+    print("saved figures/rendered/fig_sync_web_activities (.png/.pdf)")
 
 
 if __name__ == "__main__":

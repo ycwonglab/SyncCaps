@@ -20,7 +20,7 @@ from matplotlib.cm import ScalarMappable
 from matplotlib.patches import FancyArrowPatch
 from matplotlib.lines import Line2D
 
-spec = importlib.util.spec_from_file_location("m", "docs/paper/make_neuron_dynamics_figure.py")
+spec = importlib.util.spec_from_file_location("m", "figures/scripts/make_neuron_dynamics_figure.py")
 m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 CELL, SIZE, INK, MUT = m.CELL, m.SIZE, m.INK, m.MUT
 CMAP = plt.cm.YlOrRd
@@ -140,10 +140,10 @@ def main():
              " · dashed = fixed ρ arcs overlaid",
              fontsize=10.5, ha="left", color=MUT)
     for ext in ("png", "pdf"):
-        fig.savefig(f"docs/paper/figures/fig_sync_web_activities_peaktick{SUF}.{ext}",
+        fig.savefig(f"figures/rendered/fig_sync_web_activities_peaktick{SUF}.{ext}",
                     dpi=200, facecolor="white", bbox_inches="tight", pad_inches=0.12)
     plt.close(fig)
-    print(f"saved docs/paper/figures/fig_sync_web_activities_peaktick{SUF} (.png/.pdf)")
+    print(f"saved figures/rendered/fig_sync_web_activities_peaktick{SUF} (.png/.pdf)")
 
 
 if __name__ == "__main__":

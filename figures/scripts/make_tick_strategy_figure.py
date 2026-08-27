@@ -16,8 +16,8 @@ same functions behind every number in the ledger, so the curves cannot drift
 from the tables. Single-view (one temporal window), matching the checkpoint's
 own stored `mean_exit_tick`; multi-clip figures would need their own annotation.
 
-Usage:  python docs/paper/make_tick_strategy_figure.py [outdir]
-        SYNCCAPS_FIG_CFG=legacy python docs/paper/make_tick_strategy_figure.py
+Usage:  python figures/scripts/make_tick_strategy_figure.py [outdir]
+        SYNCCAPS_FIG_CFG=legacy python figures/scripts/make_tick_strategy_figure.py
 """
 import importlib.util
 import os
@@ -31,14 +31,14 @@ import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader, Subset
 
 sys.path.insert(0, ".")
-spec = importlib.util.spec_from_file_location("m", "docs/paper/make_neuron_dynamics_figure.py")
+spec = importlib.util.spec_from_file_location("m", "figures/scripts/make_neuron_dynamics_figure.py")
 m = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(m)
 INK, MUT = m.INK, m.MUT
 
-from exp_base import UCF11VideoDataset, make_official_split1, DEVICE
+from src.training.exp_base import UCF11VideoDataset, make_official_split1, DEVICE
 from src.models.temporal_routing import hybrid_readout
-from synccaps_probe_experiment import _collect_logits, _readout_metrics
+from src.training.synccaps_probe_experiment import _collect_logits, _readout_metrics
 
 C_CERT, C_FIN, C_HYB = "#2e7d5b", "#5b6b78", "#c0392b"
 
@@ -51,7 +51,7 @@ def collect(model):
     return _collect_logits(model.to(DEVICE), loader)
 
 
-def main(outdir="docs/paper/figures"):
+def main(outdir="figures/rendered"):
     model = m.build_model()
     rho = model.sync.rho.detach().cpu().numpy()
     lg, y = collect(model)
@@ -126,4 +126,4 @@ def main(outdir="docs/paper/figures"):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "docs/paper/figures")
+    main(sys.argv[1] if len(sys.argv) > 1 else "figures/rendered")

@@ -35,10 +35,10 @@
     "exit_tick_distribution": {
       "expected_pct_exit_at_tick_1": 26,
       "expected_pct_run_full_budget": 64,
-      "measured_pct_exit_at_tick_1": null,
-      "measured_pct_run_full_budget": null,
+      "measured_pct_exit_at_tick_1": 26.0,
+      "measured_pct_run_full_budget": 63.9,
       "source": "printed by figures/scripts/make_tick_strategy_figure.py; needs per-tick logits, which the prediction dumps do not store",
-      "agrees": null
+      "agrees": true
     }
   },
   "inputs": [
