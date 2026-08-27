@@ -1,0 +1,61 @@
+{
+  "doi": "10.5281/zenodo.22131664",
+  "zenodo_record": "https://zenodo.org/records/22131664",
+  "access": "restricted during peer review; metadata and DOI are public, files are released on request via the Zenodo landing page",
+  "immutability": "a PUBLISHED Zenodo record is immutable: its files cannot be replaced without minting a new version DOI. This is why it is cited alongside the GitHub release, which is versioned but mutable.",
+  "corresponds_to": {
+    "repository": "https://github.com/ycwonglab/SyncCaps",
+    "commit": "81e6290f693d04ce43f906f40b75522c53cfbb69",
+    "tag": "v1.0.1-artifacts"
+  },
+  "verifying_without_file_access": "Every archived file is derived from the pinned commit or from the identically named GitHub release asset, so correspondence can be confirmed by regenerating the archive and comparing SHA-256 -- no Zenodo download required. Verified reproducible on 2026-08-28 for the repository archive, byte-identical both compressed and uncompressed.",
+  "files": {
+    "synccaps-checkpoints-clip.tar": {
+      "bytes": 160020480,
+      "sha256": "ac3dbb44022d759e8258e32a3ae055101545a4af396dc7ec78caf55e90637289",
+      "role": "trained checkpoints for the clip family; identical bytes to the GitHub release asset of the same name. Per-checkpoint digests are in checkpoints/CHECKSUMS.sha256 after extraction."
+    },
+    "synccaps-checkpoints-fine_tuning.tar": {
+      "bytes": 173639680,
+      "sha256": "0e187006027acf72f01081c24d3d3543b26a78f9e3360416a16e52a030c5a114",
+      "role": "trained checkpoints for the fine_tuning family; identical bytes to the GitHub release asset of the same name. Per-checkpoint digests are in checkpoints/CHECKSUMS.sha256 after extraction."
+    },
+    "synccaps-checkpoints-pair_composition.tar": {
+      "bytes": 107479040,
+      "sha256": "75427c6e2a3932339880f4fbe375f8cd447261b8f3f285210cbff3093a3aed79",
+      "role": "trained checkpoints for the pair_composition family; identical bytes to the GitHub release asset of the same name. Per-checkpoint digests are in checkpoints/CHECKSUMS.sha256 after extraction."
+    },
+    "synccaps-checkpoints-resnet18.tar": {
+      "bytes": 550430720,
+      "sha256": "fe1bda03e0024d52e6e29e22a1812c46ea58ee49657551bb3eeb1c0e1f421195",
+      "role": "trained checkpoints for the resnet18 family; identical bytes to the GitHub release asset of the same name. Per-checkpoint digests are in checkpoints/CHECKSUMS.sha256 after extraction."
+    },
+    "synccaps-checkpoints-routing.tar": {
+      "bytes": 263915520,
+      "sha256": "ab8e32eb3bd3dd4cfd45b454d46bfdae9f14b2c7f06e78f15e0ee53226bbd10c",
+      "role": "trained checkpoints for the routing family; identical bytes to the GitHub release asset of the same name. Per-checkpoint digests are in checkpoints/CHECKSUMS.sha256 after extraction."
+    },
+    "synccaps-experiment-source.tar.gz": {
+      "bytes": 89321,
+      "sha256": "adcfe8da203f19d487fe117e8350ee56458e97230af7ba9268146219c79fd4c2",
+      "role": "git archive of the experiment-source branch (prefix SyncCaps-experiment-source/): the working-tree source that produced the results"
+    },
+    "synccaps-repository-v1.0.1.tar.gz": {
+      "bytes": 30678863,
+      "sha256": "a967e438aa132ceaae5c6aa7796c00625234dd6c439fdc28341dabebcb4e2397",
+      "role": "git archive of this repository at the pinned commit (prefix SyncCaps-v1.0.1/). Reproduce locally with: git archive --format=tar.gz --prefix=SyncCaps-v1.0.1/ <commit>"
+    }
+  },
+  "total_bytes": 1286253624,
+  "reproduce_commands": {
+    "synccaps-repository-v1.0.1.tar.gz": "git archive --format=tar.gz --prefix=SyncCaps-v1.0.1/ -o synccaps-repository-v1.0.1.tar.gz 81e6290f693d04ce43f906f40b75522c53cfbb69",
+    "synccaps-experiment-source.tar.gz": "git archive --format=tar.gz --prefix=SyncCaps-experiment-source/ -o synccaps-experiment-source.tar.gz experiment-source",
+    "synccaps-checkpoints-*.tar": "identical bytes to the GitHub release assets of the same name on tag v1.0.1-artifacts"
+  },
+  "published": true,
+  "published_date": "2026-08-28",
+  "record_url": "https://zenodo.org/record/22131664",
+  "doi_url": "https://doi.org/10.5281/zenodo.22131664",
+  "creator": "Wong, Yan Chiew",
+  "verified_on_publish": "All 7 files verified by MD5 against the local copies after upload and before publishing; DOI confirmed resolving at doi.org, the DataCite registry and the Zenodo record API."
+}

@@ -216,26 +216,36 @@ work.
 
 ## Archive and persistent identifier
 
-A Zenodo DOI has been **reserved** for this package:
+This package is archived on Zenodo with a persistent identifier:
 
 ```
-10.5281/zenodo.22131664
+10.5281/zenodo.22131664        https://doi.org/10.5281/zenodo.22131664
 ```
 
-**It does not resolve yet.** Zenodo lets you reserve a DOI on a draft
-deposition so it can be cited *inside* the artifact being deposited; the DOI is
-only registered when that deposition is published. As of the last check, all
-three registries return 404:
+**Files are restricted while the associated manuscript is under peer review.**
+The DOI, landing page and metadata are public, so the package can be cited;
+the 1.20 GB of archived files are released on request via the button on the
+Zenodo page. The record will be opened once review concludes.
+
+Two properties matter and are easy to conflate:
+
+- The **Zenodo record is immutable** — its files cannot be replaced without
+  minting a new version DOI. Restricted access gates *who may read*, not
+  *whether the content can change*.
+- The **GitHub release is mutable** — tags can be moved and assets replaced,
+  and both happened during preparation. Cite the DOI when you need a fixed
+  reference.
+
+`provenance/zenodo_deposit_manifest.json` lists every archived file with its
+size, SHA-256, role and the exact command that regenerates it. Because each
+archive is derived from the pinned commit or from the identically named GitHub
+release asset, **correspondence can be verified by checksum without downloading
+anything from Zenodo** — useful for reviewers who have repository access but no
+file grant.
 
 ```bash
-python provenance/check_doi.py     # exit 0 = minted, 1 = reserved only
+python provenance/check_doi.py     # exit 0 once the DOI is minted
 ```
-
-Until that deposition is published, **the GitHub release is the only public
-archive, and it is versioned but mutable** — tags can be moved and assets
-replaced, and both have happened during preparation. Do not describe this
-package as having an immutable archive, and do not cite the DOI as resolvable,
-until `check_doi.py` exits 0.
 
 ## License and citation
 
