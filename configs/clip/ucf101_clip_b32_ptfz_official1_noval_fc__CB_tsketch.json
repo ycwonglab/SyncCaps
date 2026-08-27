@@ -2,7 +2,7 @@
   "experiment_id": "ucf101_clip_b32_ptfz_official1_noval_fc__CB_tsketch",
   "arm": "CB_tsketch",
   "family": "clip",
-  "source_results_file": "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_B4_gram-CB_tsketch.json",
+  "source_results_file": "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_B4_gram-CB_tsketch-LR_bilinear.json, synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_B4_gram-CB_tsketch.json",
   "dataset": "ucf101",
   "backbone": "clip_b32",
   "extraction_layer": "CLIP ViT-B/32 final patch tokens, 1x1 conv -> out_ch",
@@ -34,8 +34,11 @@
   "differential_lr": false,
   "backbone_lr": null,
   "optimizer_seeds": [
+    7,
     19,
+    42,
     101,
+    1337,
     2026
   ],
   "pair_dictionary": {
@@ -91,8 +94,31 @@
     "batch_size": 4
   },
   "checkpoints": [
-    "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_CB_tsketch_seed19.pt",
     "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_CB_tsketch_seed101.pt",
-    "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_CB_tsketch_seed2026.pt"
+    "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_CB_tsketch_seed1337.pt",
+    "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_CB_tsketch_seed19.pt",
+    "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_CB_tsketch_seed2026.pt",
+    "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_CB_tsketch_seed42.pt",
+    "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_CB_tsketch_seed7.pt"
+  ],
+  "seed_batches": [
+    {
+      "results_file": "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_B4_gram-CB_tsketch-LR_bilinear.json",
+      "batch_id": "ucf101_clip_b32_ptfz_official1_noval_fc__CB_tsketch#synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_B4_gram-CB_tsketch-LR_bilinear.json",
+      "seeds": [
+        7,
+        42,
+        1337
+      ]
+    },
+    {
+      "results_file": "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_B4_gram-CB_tsketch.json",
+      "batch_id": "ucf101_clip_b32_ptfz_official1_noval_fc__CB_tsketch#synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_B4_gram-CB_tsketch.json",
+      "seeds": [
+        19,
+        101,
+        2026
+      ]
+    }
   ]
 }

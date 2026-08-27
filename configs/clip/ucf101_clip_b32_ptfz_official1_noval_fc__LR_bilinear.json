@@ -94,5 +94,16 @@
     "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_LR_bilinear_seed7.pt",
     "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_LR_bilinear_seed42.pt",
     "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_LR_bilinear_seed1337.pt"
+  ],
+  "seed_batches": [
+    {
+      "results_file": "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_B4_gram-CB_tsketch-LR_bilinear.json",
+      "batch_id": "ucf101_clip_b32_ptfz_official1_noval_fc__LR_bilinear#synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_B4_gram-CB_tsketch-LR_bilinear.json",
+      "seeds": [
+        7,
+        42,
+        1337
+      ]
+    }
   ]
 }

@@ -94,5 +94,16 @@
     "synccaps_ucf101_resnet_pt_official1_B0_linear_seed7.pt",
     "synccaps_ucf101_resnet_pt_official1_B0_linear_seed42.pt",
     "synccaps_ucf101_resnet_pt_official1_B0_linear_seed1337.pt"
+  ],
+  "seed_batches": [
+    {
+      "results_file": "synccaps_ucf101_resnet_pt_official1_B0_linear-B4_syncnorm.json",
+      "batch_id": "ucf101_resnet_pt_official1__B0_linear#synccaps_ucf101_resnet_pt_official1_B0_linear-B4_syncnorm.json",
+      "seeds": [
+        7,
+        42,
+        1337
+      ]
+    }
   ]
 }

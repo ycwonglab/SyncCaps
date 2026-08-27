@@ -2,7 +2,7 @@
   "experiment_id": "ucf101_resnet_ptfz_official1_noval_fc__B4_gram",
   "arm": "B4_gram",
   "family": "resnet18",
-  "source_results_file": "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram-CB_tsketch.json",
+  "source_results_file": "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B0_linear-B4_syncnorm-B4_gram-CB_tsketch.json, synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram-CB_tsketch.json",
   "dataset": "ucf101",
   "backbone": "resnet",
   "extraction_layer": "ResNet-18 layer4 output, 1x1 conv -> out_ch",
@@ -35,10 +35,13 @@
   "backbone_lr": null,
   "optimizer_seeds": [
     5,
+    7,
     11,
     19,
     23,
+    42,
     101,
+    1337,
     2026
   ],
   "pair_dictionary": {
@@ -94,11 +97,37 @@
     "batch_size": 4
   },
   "checkpoints": [
-    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram_seed5.pt",
-    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram_seed11.pt",
-    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram_seed19.pt",
-    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram_seed23.pt",
     "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram_seed101.pt",
-    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram_seed2026.pt"
+    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram_seed11.pt",
+    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram_seed1337.pt",
+    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram_seed19.pt",
+    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram_seed2026.pt",
+    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram_seed23.pt",
+    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram_seed42.pt",
+    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram_seed5.pt",
+    "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram_seed7.pt"
+  ],
+  "seed_batches": [
+    {
+      "results_file": "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B0_linear-B4_syncnorm-B4_gram-CB_tsketch.json",
+      "batch_id": "ucf101_resnet_ptfz_official1_noval_fc__B4_gram#synccaps_ucf101_resnet_ptfz_official1_noval_fc_B0_linear-B4_syncnorm-B4_gram-CB_tsketch.json",
+      "seeds": [
+        7,
+        42,
+        1337
+      ]
+    },
+    {
+      "results_file": "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram-CB_tsketch.json",
+      "batch_id": "ucf101_resnet_ptfz_official1_noval_fc__B4_gram#synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_gram-CB_tsketch.json",
+      "seeds": [
+        5,
+        11,
+        19,
+        23,
+        101,
+        2026
+      ]
+    }
   ]
 }

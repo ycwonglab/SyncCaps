@@ -1,0 +1,24 @@
+==============================================================================
+1. Frame-permutation disagreement  (tag ucf101_resnet_ptfz_official1_noval_fc, policy certain)
+==============================================================================
+  seed 42    n=3783  disagree  561 (14.83%)  sync-only 148 | shuffle-only 150  both-wrong-differently 263
+        acc  B1_sync 68.28  B3_shuffle 68.33  gap -0.05
+  seed 1337  n=3783  disagree  621 (16.42%)  sync-only 133 | shuffle-only 162  both-wrong-differently 326
+        acc  B1_sync 67.20  B3_shuffle 67.96  gap -0.77
+  seed 7     n=3783  disagree  550 (14.54%)  sync-only 124 | shuffle-only 178  both-wrong-differently 248
+        acc  B1_sync 68.04  B3_shuffle 69.47  gap -1.43
+  MEAN over 3 seeds: 577 of 3783 clips disagree (15.26%) at an accuracy gap of -0.75 points.
+  Reading: the order control is NOT predicting the same clips. A tie
+  in accuracy with this much per-clip disagreement means frame order
+  changes WHICH clips are correct without changing HOW MANY.
+
+==============================================================================
+2. Efficiency ratios against routing (from results/timing/readout_profile_published.json)
+==============================================================================
+  R3_route vs B4_syncnorm  head params 17.81x | p50 1.78x | p95 1.77x | peak act 1.89x
+  R3_route vs B4_gram      head params 17.99x | p50 1.71x | p95 1.81x | peak act 1.89x
+  R3_route vs B0_linear    head params 15.99x | p50 5.42x | p95 5.29x | peak act 1.88x
+  absolute: R3_route 10.03/12.21 ms, B4_syncnorm 5.64/6.88 ms (p50/p95)
+  device: NVIDIA GeForce RTX 4070 Laptop GPU | readout path only; frozen stem served from feature cache
+
+wrote results/statistics/claim_analyses.json

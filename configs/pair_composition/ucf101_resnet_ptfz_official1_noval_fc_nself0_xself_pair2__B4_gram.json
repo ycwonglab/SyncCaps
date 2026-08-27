@@ -94,5 +94,16 @@
     "synccaps_ucf101_resnet_ptfz_official1_noval_fc_nself0_xself_pair2_B4_gram_seed7.pt",
     "synccaps_ucf101_resnet_ptfz_official1_noval_fc_nself0_xself_pair2_B4_gram_seed42.pt",
     "synccaps_ucf101_resnet_ptfz_official1_noval_fc_nself0_xself_pair2_B4_gram_seed1337.pt"
+  ],
+  "seed_batches": [
+    {
+      "results_file": "synccaps_ucf101_resnet_ptfz_official1_noval_fc_nself0_xself_pair2_B4_gram.json",
+      "batch_id": "ucf101_resnet_ptfz_official1_noval_fc_nself0_xself_pair2__B4_gram#synccaps_ucf101_resnet_ptfz_official1_noval_fc_nself0_xself_pair2_B4_gram.json",
+      "seeds": [
+        7,
+        42,
+        1337
+      ]
+    }
   ]
 }

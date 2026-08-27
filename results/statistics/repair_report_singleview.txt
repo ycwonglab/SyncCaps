@@ -1,0 +1,105 @@
+SyncCaps evidence-chain repair report -- single view, `test_acc_certain`
+Frozen ResNet-18 layer3, UCF101 official split-1, corrected (eval-mode) frozen BatchNorm throughout.
+
+================================================================================================
+Arm means
+================================================================================================
+  B0_linear         65.72 +/- 0.22  n=3  seeds [7, 42, 1337]
+  B1_sync           67.35 +/- 0.71  n=3  seeds [7, 42, 1337]
+  B4_syncnorm       71.70 +/- 0.36  n=6  seeds [7, 19, 42, 101, 1337, 2026]
+  B4_gram           71.97 +/- 0.29  n=9  seeds [5, 7, 11, 19, 23, 42, 101, 1337, 2026]
+  CB_tsketch        70.68 +/- 0.63  n=9  seeds [5, 7, 11, 19, 23, 42, 101, 1337, 2026]
+  R3_route          71.79 +/- 0.40  n=6  seeds [7, 19, 42, 101, 1337, 2026]
+  B3_shuffle        67.92 +/- 0.52  n=3  seeds [7, 42, 1337]
+
+================================================================================================
+1. Method decomposition (restated Table 5.1 row)
+================================================================================================
+  sync statistic       B1 - B0                    +1.63 +/- 0.88  n=3  95% CI [ -0.57,  +3.83]  3/3
+                                                 per seed: 7:+2.33, 42:+1.93, 1337:+0.63
+  normalisation        B4 - B1                    +4.21 +/- 0.58  n=3  95% CI [ +2.78,  +5.65]  3/3
+                                                 per seed: 7:+3.70, 42:+4.10, 1337:+4.84
+  full method          B4 - B0                    +5.84 +/- 0.32  n=3  95% CI [ +5.05,  +6.64]  3/3
+                                                 per seed: 7:+6.03, 42:+6.03, 1337:+5.47
+
+================================================================================================
+2. rho = 0 mechanism control (repair plan section 3)
+================================================================================================
+  B4_gram - B4_syncnorm                           +0.30 +/- 0.45  n=6  95% CI [ -0.17,  +0.76]  4/6
+                                                 TOST +/-1.0: 90% CI [ -0.07,  +0.66] -> EQUIVALENT
+                                                 pre-correction values were +0.14 single / +0.27 multi-clip
+                                                 per seed: 7:+1.03, 19:+0.40, 42:+0.29, 101:-0.21, 1337:+0.40, 2026:-0.13
+
+================================================================================================
+3. Shuffle control, corrected BN (repair plan section 4)
+================================================================================================
+  B1_sync - B3_shuffle                            -0.56 +/- 0.44  n=3  95% CI [ -1.65,  +0.52]  0/3
+                                                 TOST +/-1.0: 90% CI [ -1.30,  +0.17] -> NOT shown equivalent
+                                                 published -0.40 came from a PRE-FIX UNCACHED frozen run
+                                                 per seed: 7:-0.69, 42:-0.08, 1337:-0.93
+
+================================================================================================
+4. Operator: exact sampled pairs vs Tensor Sketch (plan section 5.2)
+================================================================================================
+  B4_gram - CB_tsketch  (all seeds)               +1.28 +/- 0.74  n=9  95% CI [ +0.71,  +1.85]  8/9
+                                                 per seed: 5:+1.11, 7:+1.69, 11:+1.90, 19:+0.50, 23:+2.30, 42:+1.67, 101:+1.59, 1337:+0.00, 2026:+0.77
+  B4_gram - CB_tsketch  (fresh {5,11,23} only)    +1.77 +/- 0.61  n=3  95% CI [ +0.27,  +3.28]  3/3
+                                                 pre-registered confirmatory set, analysed separately from the sequentially-extended n=6
+                                                 per seed: 5:+1.11, 11:+1.90, 23:+2.30
+  CLIP: B4_gram - CB_tsketch                      +0.05 +/- 0.23  n=6  95% CI [ -0.20,  +0.29]  2/6
+                                                 per seed: 7:-0.05, 19:-0.05, 42:-0.05, 101:-0.21, 1337:+0.24, 2026:+0.42
+  INTERACTION (Exact-Sketch): L3 - CLIP           +0.99 +/- 0.88  n=6  95% CI [ +0.06,  +1.91]  5/6
+                                                 seed-matched; the backbone x operator term the plan requires before any general superiority claim
+                                                 per seed: 7:+1.74, 19:+0.56, 42:+1.72, 101:+1.80, 1337:-0.24, 2026:+0.34
+
+================================================================================================
+5. Routing (repair plan section 5.1)
+================================================================================================
+  R3_route - B4_gram                              -0.21 +/- 0.59  n=6  95% CI [ -0.82,  +0.41]  1/6
+                                                 TOST +/-1.0: 90% CI [ -0.69,  +0.28] -> EQUIVALENT
+                                                 "parity" needs this TOST to pass; a sign flip is not a test
+                                                 per seed: 7:-0.77, 19:-0.24, 42:+0.00, 101:-0.77, 1337:-0.29, 2026:+0.82
+  R3_route - B4_syncnorm                          +0.09 +/- 0.56  n=6  95% CI [ -0.50,  +0.68]  5/6
+                                                 TOST +/-1.0: 90% CI [ -0.37,  +0.55] -> EQUIVALENT
+                                                 per seed: 7:+0.26, 19:+0.16, 42:+0.29, 101:-0.98, 1337:+0.11, 2026:+0.69
+  R3_route - B0_linear                            +6.06 +/- 0.42  n=3  95% CI [ +5.02,  +7.11]  3/3
+                                                 per seed: 7:+6.29, 42:+6.32, 1337:+5.58
+
+================================================================================================
+6. Self-pairs vs cross-pairs (repair plan section 7)
+================================================================================================
+  self-only  (n_self=2048)      68.50  n=3
+  cross-only (n_self=0)         71.94  n=3
+  cross-only - self-only                          +3.44 +/- 0.53  n=3  95% CI [ +2.13,  +4.74]  3/3
+                                                 cross > self supports the co-activation reading; a tie means the gain is normalized activation ENERGY, not synchrony
+                                                 per seed: 7:+4.04, 42:+3.15, 1337:+3.12
+  mixed(64) - self-only                           +3.64 +/- 0.52  n=3  95% CI [ +2.35,  +4.93]  3/3
+                                                 per seed: 7:+3.97, 42:+3.91, 1337:+3.04
+  mixed(64) - cross-only                          +0.20 +/- 0.49  n=3  95% CI [ -1.01,  +1.42]  1/3
+                                                 per seed: 7:-0.08, 42:+0.77, 1337:-0.08
+  self-only - B0_linear                           +2.78 +/- 0.35  n=3  95% CI [ +1.91,  +3.64]  3/3
+                                                 how much of the +5.84 full-method gain survives with NO cross terms at all
+                                                 per seed: 7:+3.09, 42:+2.41, 1337:+2.83
+
+================================================================================================
+7. Val-carved replication, corrected frozen arms (plan section 2.1)
+================================================================================================
+  frozen B0                     64.59  n=3
+  frozen B4                     70.19  n=3
+  frozen B4_gram                70.09  n=3
+  fine-tuned B0                 67.38  n=3
+  fine-tuned B4                 68.25  n=3
+  readout on frozen features B4 - B0              +5.60 +/- 0.15  n=3  95% CI [ +5.24,  +5.97]  3/3
+                                                 per seed: 7:+5.74, 42:+5.45, 1337:+5.63
+  HEADLINE frozen B4 - fine-tuned B0              +2.81 +/- 0.92  n=3  95% CI [ +0.53,  +5.09]  3/3
+                                                 per seed: 7:+1.77, 42:+3.52, 1337:+3.15
+  fine-tuning ON TOP  ftB4 - frozen B4            -1.94 +/- 0.14  n=3  95% CI [ -2.28,  -1.60]  0/3
+                                                 TOST +/-1.0: 90% CI [ -2.17,  -1.71] -> NOT shown equivalent
+                                                 per seed: 7:-1.82, 42:-1.90, 1337:-2.09
+  fine-tuning helps linear  ftB0 - frB0           +2.79 +/- 1.05  n=3  95% CI [ +0.18,  +5.41]  3/3
+                                                 per seed: 7:+3.97, 42:+1.93, 1337:+2.48
+  val-carved rho=0  B4_gram - B4                  -0.10 +/- 0.97  n=3  95% CI [ -2.51,  +2.31]  2/3
+                                                 TOST +/-1.0: 90% CI [ -1.73,  +1.54] -> NOT shown equivalent
+                                                 per seed: 7:+0.66, 42:+0.24, 1337:-1.19
+
+NOTE: single-view and multi-clip numbers are never mixed in one contrast (ledger trap #4 / plan section 4).

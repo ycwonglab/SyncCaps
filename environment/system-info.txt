@@ -1,12 +1,43 @@
 SyncCaps - system and environment record
 generated: 2026-08-27T12:51:33Z
 
-## Source revision
-git commit : 5f174669d96ac2957ce4787653c1df4270f18b02
-git branch : prototype/p0-landmark-headroom
-note       : all final runs in results/seed_summaries/seed_level_results.csv
-             were produced from this working tree. The frozen-BatchNorm
-             correction (the '_fc' tag in every experiment id) is included.
+## Source revision  (CORRECTED 2026-08-27 after audit round 2)
+
+nearest ancestor commit : 5f174669d96ac2957ce4787653c1df4270f18b02
+branch                  : prototype/p0-landmark-headroom
+published source        : the `experiment-source` branch of this repository
+
+An earlier version of this file named the commit above as "the source revision".
+That was WRONG in a way that matters, and the correction is recorded here rather
+than quietly edited away.
+
+The reported runs were made from a WORKING TREE that differed from that commit.
+At the commit itself, exp_base.py:
+
+  - has no _group_of              (source-video group id for leak-free splitting)
+  - has no make_official_split1   (UCF101 published split-1, used by every
+                                   `official1` result in this package)
+  - has no FrozenFeatureDataset   (the frozen-stem feature cache)
+  - defines make_stratified_splits as the OLD CLIP-LEVEL split -- the leaky
+    protocol that was retired -- whereas the working tree aliases that name to
+    the group-aware make_group_splits.
+
+Eight further files are untracked at that commit and exist only in the working
+tree, including synccaps_readout_profile.py (all timing evidence) and
+synccaps_precompute_stem.py (the feature cache).
+
+Checking out that commit and re-running would therefore silently reproduce the
+RETIRED LEAKY PROTOCOL, not the published results.
+
+The actual bytes that produced the results are published on the
+`experiment-source` branch, with per-file SHA-256, the git blob SHA-1 for the
+12 files that are byte-identical to the commit, and complete unified diffs for
+the two that are not. provenance/verify_source_equivalence.py checks the
+packaged src/ against that branch and fails if any model or training file
+differs beyond import paths.
+
+The frozen-BatchNorm correction (the '_fc' tag in every experiment id) is
+included in the published source.
 
 ## Operating system
 Linux MSI 5.15.167.4-microsoft-standard-WSL2 #1 SMP Tue Nov 5 00:21:55 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux

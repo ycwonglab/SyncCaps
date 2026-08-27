@@ -18,7 +18,9 @@ import json
 import math
 import os
 
-RES = 'gating_results'
+# Default matches this release package. The original working tree kept these
+# files in `gating_results/`; --results-dir accepts either.
+RES = 'results/seed_summaries/raw_results_json'
 
 # t critical values, two-sided 95% / 90%, indexed by degrees of freedom
 T95 = {1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447, 7: 2.365,
@@ -93,7 +95,10 @@ if __name__ == '__main__':
                          'NEVER mix the two in one contrast (ledger trap).')
     ap.add_argument('--margin', type=float, default=1.0,
                     help='pre-specified equivalence margin, accuracy points')
+    ap.add_argument('--results-dir', default=RES,
+                    help='directory of committed result JSONs')
     args = ap.parse_args()
+    RES = args.results_dir
 
     if args.multiclip:
         MC = 'multiclip_ucf101_resnet_ptfz_official1_noval_fc.json'

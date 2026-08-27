@@ -94,5 +94,16 @@
     "synccaps_ucf101_resnet_ptfz_official1_fc_B4_syncnorm_seed7.pt",
     "synccaps_ucf101_resnet_ptfz_official1_fc_B4_syncnorm_seed42.pt",
     "synccaps_ucf101_resnet_ptfz_official1_fc_B4_syncnorm_seed1337.pt"
+  ],
+  "seed_batches": [
+    {
+      "results_file": "synccaps_ucf101_resnet_ptfz_official1_fc_B0_linear-B4_syncnorm-B4_gram.json",
+      "batch_id": "ucf101_resnet_ptfz_official1_fc__B4_syncnorm#synccaps_ucf101_resnet_ptfz_official1_fc_B0_linear-B4_syncnorm-B4_gram.json",
+      "seeds": [
+        7,
+        42,
+        1337
+      ]
+    }
   ]
 }

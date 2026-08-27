@@ -1,0 +1,66 @@
+{
+  "frame_permutation_disagreement": [
+    {
+      "seed": 42,
+      "n_clips": 3783,
+      "disagree": 561,
+      "disagree_pct": 14.83,
+      "a_right_b_wrong": 148,
+      "b_right_a_wrong": 150,
+      "both_right": 2435,
+      "both_wrong_differently": 263,
+      "acc_a": 68.28,
+      "acc_b": 68.33,
+      "acc_gap": -0.05
+    },
+    {
+      "seed": 1337,
+      "n_clips": 3783,
+      "disagree": 621,
+      "disagree_pct": 16.42,
+      "a_right_b_wrong": 133,
+      "b_right_a_wrong": 162,
+      "both_right": 2409,
+      "both_wrong_differently": 326,
+      "acc_a": 67.2,
+      "acc_b": 67.96,
+      "acc_gap": -0.77
+    },
+    {
+      "seed": 7,
+      "n_clips": 3783,
+      "disagree": 550,
+      "disagree_pct": 14.54,
+      "a_right_b_wrong": 124,
+      "b_right_a_wrong": 178,
+      "both_right": 2450,
+      "both_wrong_differently": 248,
+      "acc_a": 68.04,
+      "acc_b": 69.47,
+      "acc_gap": -1.43
+    }
+  ],
+  "efficiency_ratios_vs_R3_route": {
+    "B4_syncnorm": {
+      "head_params_x": 17.81,
+      "p50_latency_x": 1.78,
+      "p95_latency_x": 1.77,
+      "peak_act_x": 1.89
+    },
+    "B4_gram": {
+      "head_params_x": 17.99,
+      "p50_latency_x": 1.71,
+      "p95_latency_x": 1.81,
+      "peak_act_x": 1.89
+    },
+    "B0_linear": {
+      "head_params_x": 15.99,
+      "p50_latency_x": 5.42,
+      "p95_latency_x": 5.29,
+      "peak_act_x": 1.88
+    }
+  },
+  "timing_source": "results/timing/readout_profile_published.json",
+  "policy": "certain",
+  "tag": "ucf101_resnet_ptfz_official1_noval_fc"
+}

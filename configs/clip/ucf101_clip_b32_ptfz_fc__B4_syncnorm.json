@@ -130,5 +130,16 @@
     "synccaps_ucf101_clip_b32_ptfz_fc_B4_syncnorm_seed7.pt",
     "synccaps_ucf101_clip_b32_ptfz_fc_B4_syncnorm_seed42.pt",
     "synccaps_ucf101_clip_b32_ptfz_fc_B4_syncnorm_seed1337.pt"
+  ],
+  "seed_batches": [
+    {
+      "results_file": "synccaps_ucf101_clip_b32_ptfz_fc_B0_linear-B1_sync-B4_syncnorm.json",
+      "batch_id": "ucf101_clip_b32_ptfz_fc__B4_syncnorm#synccaps_ucf101_clip_b32_ptfz_fc_B0_linear-B1_sync-B4_syncnorm.json",
+      "seeds": [
+        7,
+        42,
+        1337
+      ]
+    }
   ]
 }

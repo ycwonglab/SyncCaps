@@ -94,5 +94,16 @@
     "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_R3_route_seed7.pt",
     "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_R3_route_seed42.pt",
     "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_R3_route_seed1337.pt"
+  ],
+  "seed_batches": [
+    {
+      "results_file": "synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_R3_route.json",
+      "batch_id": "ucf101_clip_b32_ptfz_official1_noval_fc__R3_route#synccaps_ucf101_clip_b32_ptfz_official1_noval_fc_R3_route.json",
+      "seeds": [
+        7,
+        42,
+        1337
+      ]
+    }
   ]
 }

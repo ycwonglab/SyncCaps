@@ -93,6 +93,7 @@ def main():
                 multiclip[(mtag, marm, r.get('seed'))] = r
 
     rows, manifest_rows, n_cfg = [], [], 0
+    pending = {}          # experiment_id -> (config path, merged config dict)
     for p in sorted(glob.glob(os.path.join(a.gating, 'synccaps_*.json'))):
         d = json.load(open(p))
         if not isinstance(d, dict) or '_config' not in d:
@@ -118,6 +119,7 @@ def main():
         for arm in arms:
             exp_id = '%s__%s' % (tag, arm)
             seeds = sorted(r['seed'] for r in d[arm])
+            batch_id = '%s#%s' % (exp_id, os.path.basename(p))
             cfile = Path(a.configs) / fam / (exp_id + '.json')
             cfile.parent.mkdir(parents=True, exist_ok=True)
 
@@ -186,14 +188,32 @@ def main():
                 'checkpoints': ['synccaps_%s_%s_seed%d.pt' % (tag, arm, s)
                                 for s in seeds],
             }
-            cfile.write_text(json.dumps(conf, indent=2) + '\n')
-            n_cfg += 1
+            # merge, do not overwrite: a second results file for the same
+            # experiment_id is an ADDITIONAL seed batch, not a replacement.
+            # (Round-2 audit: five ids previously lost their first batch here.)
+            prev = pending.get(exp_id)
+            if prev is None:
+                conf['seed_batches'] = [{'results_file': os.path.basename(p),
+                                         'batch_id': batch_id, 'seeds': seeds}]
+                pending[exp_id] = (cfile, conf)
+            else:
+                pcfile, pconf = prev
+                pconf['optimizer_seeds'] = sorted(set(pconf['optimizer_seeds'])
+                                                  | set(seeds))
+                pconf['seed_batches'].append({'results_file': os.path.basename(p),
+                                              'batch_id': batch_id,
+                                              'seeds': seeds})
+                pconf['source_results_file'] = ', '.join(
+                    b['results_file'] for b in pconf['seed_batches'])
+                pconf['checkpoints'] = sorted(set(pconf['checkpoints'])
+                                              | set(conf['checkpoints']))
 
             for r in d[arm]:
                 ckname = 'synccaps_%s_%s_seed%d.pt' % (tag, arm, r['seed'])
                 ckpath = os.path.join(a.checkpoints, ckname)
                 rows.append({
                     'experiment_id': exp_id,
+                    'result_batch_id': batch_id,
                     'config_path': str(cfile).replace(os.sep, '/'),
                     'dataset': cfg['dataset'], 'backbone': cfg['stem'],
                     'arm': arm, 'family': fam,
@@ -224,7 +244,8 @@ def main():
                     'single_view_drift': mv.get('single_view_drift') if mv else None,
                 })
             manifest_rows.append({
-                'experiment_id': exp_id, 'family': fam,
+                'experiment_id': exp_id, 'result_batch_id': batch_id,
+                'family': fam,
                 'config_path': str(cfile).replace(os.sep, '/'),
                 'results_file': os.path.basename(p),
                 'dataset': cfg['dataset'], 'backbone': cfg['stem'],
@@ -232,6 +253,10 @@ def main():
                 'seeds': ';'.join(map(str, seeds)),
                 'pair_seed': pair_seed, 'n_synch': n_synch, 'n_self': n_self,
             })
+
+    for cfile, conf in pending.values():
+        cfile.write_text(json.dumps(conf, indent=2) + '\n')
+        n_cfg += 1
 
     Path(a.results).mkdir(parents=True, exist_ok=True)
     rp = Path(a.results) / 'seed_level_results.csv'
@@ -251,7 +276,9 @@ def main():
         w = csv.DictWriter(f, fieldnames=list(manifest_rows[0]))
         w.writeheader(); w.writerows(sorted(manifest_rows,
                                             key=lambda r: r['experiment_id']))
-    print('configs written : %d' % n_cfg)
+    print('configs written : %d (unique experiment ids)' % n_cfg)
+    multi = [e for e, (_, c) in pending.items() if len(c['seed_batches']) > 1]
+    print('ids with >1 seed batch: %d' % len(multi))
     print('seed-level rows : %d -> %s' % (len(rows), rp))
     print('manifest rows   : %d -> %s' % (len(manifest_rows), a.manifest))
     miss = [r for r in rows if not r['checkpoint_present']]

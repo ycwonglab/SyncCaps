@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # Regenerate the manuscript figures from the released checkpoint.
 #
+# Figures 2-4 CANNOT be rebuilt from the prediction dumps: those store per-clip
+# predictions, not per-tick logits. Regenerating them requires the released
+# checkpoint and a full re-evaluation over the test set.
+#
 # REQUIRES: UCF101 on disk, plus the figure checkpoint
 #   synccaps_ucf101_resnet_ptfz_official1_noval_fc_B4_syncnorm_seed42.pt
 # from the GitHub Release, placed in checkpoints/.

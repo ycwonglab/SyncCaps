@@ -94,5 +94,16 @@
     "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B3_shuffle_seed7.pt",
     "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B3_shuffle_seed42.pt",
     "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B3_shuffle_seed1337.pt"
+  ],
+  "seed_batches": [
+    {
+      "results_file": "synccaps_ucf101_resnet_ptfz_official1_noval_fc_B3_shuffle.json",
+      "batch_id": "ucf101_resnet_ptfz_official1_noval_fc__B3_shuffle#synccaps_ucf101_resnet_ptfz_official1_noval_fc_B3_shuffle.json",
+      "seeds": [
+        7,
+        42,
+        1337
+      ]
+    }
   ]
 }

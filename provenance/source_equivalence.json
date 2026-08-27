@@ -1,0 +1,324 @@
+{
+  "summary": {
+    "EXTENDED": 8,
+    "IDENTICAL": 5,
+    "IMPORTS_ONLY": 6
+  },
+  "critical_files": [
+    "src/models/sync_caps.py",
+    "src/models/temporal_routing.py",
+    "src/models/capsule_layers.py",
+    "src/training/exp_base.py",
+    "src/training/synccaps_probe_experiment.py",
+    "src/training/synccaps_followup_experiment.py"
+  ],
+  "files": {
+    "figures/scripts/make_activity_web_grid.py": {
+      "origin": "docs/paper/make_activity_web_grid.py",
+      "status": "EXTENDED",
+      "changed_lines": 6,
+      "sha256_snapshot": "d907d52dd44cbc2940bff0fffce83022b2f43d0a2aa3720a078500163ffc933b",
+      "sha256_repo": "c435eb188461a74d325288211d3e85de253cc00db6fb128d8f4833dc6932b0f9",
+      "diff": [
+        "-spec = importlib.util.spec_from_file_location(\"m\", \"docs/paper/make_neuron_dynamics_figure.py\")",
+        "+spec = importlib.util.spec_from_file_location(\"m\", \"figures/scripts/make_neuron_dynamics_figure.py\")",
+        "-        fig.savefig(f\"docs/paper/figures/fig_sync_web_activities.{ext}\",",
+        "+        fig.savefig(f\"figures/rendered/fig_sync_web_activities.{ext}\",",
+        "-    print(\"saved docs/paper/figures/fig_sync_web_activities (.png/.pdf)\")",
+        "+    print(\"saved figures/rendered/fig_sync_web_activities (.png/.pdf)\")"
+      ]
+    },
+    "figures/scripts/make_activity_web_grid_peaktick.py": {
+      "origin": "docs/paper/make_activity_web_grid_peaktick.py",
+      "status": "EXTENDED",
+      "changed_lines": 6,
+      "sha256_snapshot": "8f100bbf1d481c09a733bf3346e1318c0ceead5e7eb42c96b4c1a50a6dbdacf6",
+      "sha256_repo": "b0a4bfa3664893efa59c87002e9df4922ffc3a491f6eda323a2d848e879cf97a",
+      "diff": [
+        "-spec = importlib.util.spec_from_file_location(\"m\", \"docs/paper/make_neuron_dynamics_figure.py\")",
+        "+spec = importlib.util.spec_from_file_location(\"m\", \"figures/scripts/make_neuron_dynamics_figure.py\")",
+        "-        fig.savefig(f\"docs/paper/figures/fig_sync_web_activities_peaktick{SUF}.{ext}\",",
+        "+        fig.savefig(f\"figures/rendered/fig_sync_web_activities_peaktick{SUF}.{ext}\",",
+        "-    print(f\"saved docs/paper/figures/fig_sync_web_activities_peaktick{SUF} (.png/.pdf)\")",
+        "+    print(f\"saved figures/rendered/fig_sync_web_activities_peaktick{SUF} (.png/.pdf)\")"
+      ]
+    },
+    "figures/scripts/make_fixedmap_figure.py": {
+      "origin": "docs/paper/make_fixedmap_figure.py",
+      "status": "EXTENDED",
+      "changed_lines": 5,
+      "sha256_snapshot": "8d539b23907eb85c84b2b4c2fdc0cd4fc2e5767f0163086d64ee979aa32e3969",
+      "sha256_repo": "844c046043c1ceb97813dbd9d742ce6b7037f97f2c22374ad2e83f05be0def5c",
+      "diff": [
+        "-    OUT = sys.argv[1] if len(sys.argv) > 1 else \\",
+        "-        \"<local-scratch-path>\"",
+        "+    # Default output directory. This previously pointed at a scratch path on the",
+        "+    # authors' machine, which does not exist anywhere else; it is now repo-relative.",
+        "+    OUT = sys.argv[1] if len(sys.argv) > 1 else \"figures/rendered\""
+      ]
+    },
+    "figures/scripts/make_neuron_dynamics_figure.py": {
+      "origin": "docs/paper/make_neuron_dynamics_figure.py",
+      "status": "EXTENDED",
+      "changed_lines": 4,
+      "sha256_snapshot": "c1ea5ae9f59fbaaf4878f103fd5fd0f93bf025602bead1370e8d4adc1adaaced",
+      "sha256_repo": "7bd82d6bfb42213f79eb854454572a4ce5ec6a308ad84275131f062348c927b6",
+      "diff": [
+        "-Usage:  python docs/paper/make_neuron_dynamics_figure.py [outdir]",
+        "+Usage:  python figures/scripts/make_neuron_dynamics_figure.py [outdir]",
+        "-#   SYNCCAPS_FIG_CFG=legacy   python docs/paper/make_neuron_dynamics_figure.py",
+        "+#   SYNCCAPS_FIG_CFG=legacy   python figures/scripts/make_neuron_dynamics_figure.py"
+      ]
+    },
+    "figures/scripts/make_tick_strategy_figure.py": {
+      "origin": "docs/paper/make_tick_strategy_figure.py",
+      "status": "EXTENDED",
+      "changed_lines": 14,
+      "sha256_snapshot": "5509a4fc47b33379dcd49efa653ec5c519096cbfd8bc0e910e155d358c22e62f",
+      "sha256_repo": "fc841ea5672108af397a061deb377a01f094bda63f100073a129f81559372938",
+      "diff": [
+        "-Usage:  python docs/paper/make_tick_strategy_figure.py [outdir]",
+        "-        SYNCCAPS_FIG_CFG=legacy python docs/paper/make_tick_strategy_figure.py",
+        "+Usage:  python figures/scripts/make_tick_strategy_figure.py [outdir]",
+        "+        SYNCCAPS_FIG_CFG=legacy python figures/scripts/make_tick_strategy_figure.py",
+        "-spec = importlib.util.spec_from_file_location(\"m\", \"docs/paper/make_neuron_dynamics_figure.py\")",
+        "+spec = importlib.util.spec_from_file_location(\"m\", \"figures/scripts/make_neuron_dynamics_figure.py\")",
+        "-from exp_base import UCF11VideoDataset, make_official_split1, DEVICE",
+        "+from src.training.exp_base import UCF11VideoDataset, make_official_split1, DEVICE",
+        "-from synccaps_probe_experiment import _collect_logits, _readout_metrics",
+        "+from src.training.synccaps_probe_experiment import _collect_logits, _readout_metrics",
+        "-def main(outdir=\"docs/paper/figures\"):",
+        "+def main(outdir=\"figures/rendered\"):",
+        "-    main(sys.argv[1] if len(sys.argv) > 1 else \"docs/paper/figures\")",
+        "+    main(sys.argv[1] if len(sys.argv) > 1 else \"figures/rendered\")"
+      ]
+    },
+    "src/training/exp_base.py": {
+      "origin": "exp_base.py",
+      "status": "IDENTICAL",
+      "changed_lines": 0,
+      "sha256_snapshot": "8a15212b960bcfd06a7ed8f3ee1471339d55639c436c2d2b82cd1ac513159d41",
+      "sha256_repo": "8a15212b960bcfd06a7ed8f3ee1471339d55639c436c2d2b82cd1ac513159d41",
+      "diff": []
+    },
+    "src/models/capsule_layers.py": {
+      "origin": "src/models/capsule_layers.py",
+      "status": "IDENTICAL",
+      "changed_lines": 0,
+      "sha256_snapshot": "471189b12798adfb784f237093d36f8efd8de5f7a52274430bb1f2d6713c14fc",
+      "sha256_repo": "471189b12798adfb784f237093d36f8efd8de5f7a52274430bb1f2d6713c14fc",
+      "diff": []
+    },
+    "src/models/sync_caps.py": {
+      "origin": "src/models/sync_caps.py",
+      "status": "IDENTICAL",
+      "changed_lines": 0,
+      "sha256_snapshot": "0f42c7d8b8e61ab44f83fdf0fb4a3dda144bdb79e76c8326b4d0730ad77808dc",
+      "sha256_repo": "0f42c7d8b8e61ab44f83fdf0fb4a3dda144bdb79e76c8326b4d0730ad77808dc",
+      "diff": []
+    },
+    "src/models/temporal_routing.py": {
+      "origin": "src/models/temporal_routing.py",
+      "status": "IDENTICAL",
+      "changed_lines": 0,
+      "sha256_snapshot": "a72b0630f1f0f57c765a687b768b47eae10ba9cac407702be14d46af767b4dfa",
+      "sha256_repo": "a72b0630f1f0f57c765a687b768b47eae10ba9cac407702be14d46af767b4dfa",
+      "diff": []
+    },
+    "src/training/synccaps_followup_experiment.py": {
+      "origin": "synccaps_followup_experiment.py",
+      "status": "IMPORTS_ONLY",
+      "changed_lines": 4,
+      "sha256_snapshot": "a3f5159255dbfe93d1d4de25a5f42ad10c6cb40c17c09ec0942e676c6d655be4",
+      "sha256_repo": "e14185eee7690df10817b911800152b35bd3bbc5bfcc33572053d390f6e51eda",
+      "diff": [
+        "-from exp_base import UCF11VideoDataset, FrozenFeatureDataset",
+        "+from src.training.exp_base import UCF11VideoDataset, FrozenFeatureDataset",
+        "-from synccaps_probe_experiment import run_experiment_sync",
+        "+from src.training.synccaps_probe_experiment import run_experiment_sync"
+      ]
+    },
+    "src/evaluation/synccaps_matrix_table.py": {
+      "origin": "synccaps_matrix_table.py",
+      "status": "IDENTICAL",
+      "changed_lines": 0,
+      "sha256_snapshot": "4fb8b4e45c9e628fd8058938d67970ac38adcab8ce4a88c56e5953de9f1f7dde",
+      "sha256_repo": "4fb8b4e45c9e628fd8058938d67970ac38adcab8ce4a88c56e5953de9f1f7dde",
+      "diff": []
+    },
+    "src/evaluation/synccaps_mcnemar.py": {
+      "origin": "synccaps_mcnemar.py",
+      "status": "EXTENDED",
+      "changed_lines": 25,
+      "sha256_snapshot": "0bc658e7e9dc5953c99f9b68f80bbfb1e6937b89290a121101fee59f2065fdba",
+      "sha256_repo": "ea5e394b9a6fe9b7a574ab2f9bdb9790225b511349a29d2b37527eb1ab835e4f",
+      "diff": [
+        "-def test_group_ids(dataset, test_idx):",
+        "+def test_group_ids(dataset, test_idx, dumps=None):",
+        "+",
+        "+    The released prediction dumps carry a `group_id` array (added by",
+        "+    provenance/build_predictions.py), so prefer that: it lets the statistics be",
+        "+    rerun WITHOUT a local copy of UCF101. Fall back to rebuilding the dataset",
+        "+    index for dumps that predate the field.",
+        "-    from exp_base import UCF11VideoDataset",
+        "-    from synccaps_followup_experiment import DATASETS",
+        "+    if dumps:",
+        "+        z = np.load(dumps[0], allow_pickle=True)",
+        "+        if 'group_id' in z.files:",
+        "+            assert np.array_equal(z['test_idx'], test_idx), (",
+        "+                '%s: test index order differs from the loaded arms' % dumps[0])",
+        "+            return z['group_id'].astype(str)",
+        "+    from src.training.exp_base import UCF11VideoDataset",
+        "+    from src.training.synccaps_followup_experiment import DATASETS",
+        "+    ap.add_argument('--perclip', default='results/predictions',",
+        "+                    help='directory holding the per-clip prediction dumps')",
+        "-            c, _, idx = load(tag, arm, seeds, args.policy)",
+        "+            c, _, idx = load(tag, arm, seeds, args.policy, outdir=args.perclip)",
+        "-        groups = test_group_ids(args.dataset, ref_idx)",
+        "+        groups = test_group_ids(",
+        "+            args.dataset, ref_idx,",
+        "+            dumps=sorted(glob.glob(os.path.join(args.perclip, '*.npz'))))"
+      ]
+    },
+    "src/evaluation/synccaps_multiclip_eval.py": {
+      "origin": "synccaps_multiclip_eval.py",
+      "status": "IMPORTS_ONLY",
+      "changed_lines": 6,
+      "sha256_snapshot": "ac20a18064f4e9abb2ced6041fc0c7e8c9277e0aa668412132b50b5d2bd40678",
+      "sha256_repo": "bfbd207415cade6151eb4ff8c5b20b914bcb2d842deb06b1b704062b3aa5771b",
+      "diff": [
+        "-from exp_base import (UCF11VideoDataset, FrozenFeatureDataset,",
+        "+from src.training.exp_base import (UCF11VideoDataset, FrozenFeatureDataset,",
+        "-from synccaps_followup_experiment import DATASETS, make_arms",
+        "-from synccaps_probe_experiment import evaluate_tr, evaluate_multiclip, set_seed",
+        "+from src.training.synccaps_followup_experiment import DATASETS, make_arms",
+        "+from src.training.synccaps_probe_experiment import evaluate_tr, evaluate_multiclip, set_seed"
+      ]
+    },
+    "src/evaluation/synccaps_perclip_dump.py": {
+      "origin": "synccaps_perclip_dump.py",
+      "status": "IMPORTS_ONLY",
+      "changed_lines": 6,
+      "sha256_snapshot": "108a74690d86b377b8033303127112245e7da20493616495c0b8cd5d989e61ad",
+      "sha256_repo": "295f9c55d7a74e3e42042b4b79e20abdb1b0f1335f6b60817eac8d7e8e5edef6",
+      "diff": [
+        "-from exp_base import (UCF11VideoDataset, FrozenFeatureDataset,",
+        "+from src.training.exp_base import (UCF11VideoDataset, FrozenFeatureDataset,",
+        "-from synccaps_followup_experiment import DATASETS, make_arms",
+        "-from synccaps_probe_experiment import evaluate_multiclip, set_seed",
+        "+from src.training.synccaps_followup_experiment import DATASETS, make_arms",
+        "+from src.training.synccaps_probe_experiment import evaluate_multiclip, set_seed"
+      ]
+    },
+    "src/training/synccaps_precompute_stem.py": {
+      "origin": "synccaps_precompute_stem.py",
+      "status": "IMPORTS_ONLY",
+      "changed_lines": 4,
+      "sha256_snapshot": "0ccd189ceca71de34ef0f574c96ca3a3e6bc5c971fa585ce9c086d49e1dc0c8f",
+      "sha256_repo": "a51e1a5a356d97baab44066d1cdca6c005a3c0193d6d9e8938b68225142ff76d",
+      "diff": [
+        "-from exp_base import UCF11VideoDataset, FrozenFeatureDataset, DEVICE",
+        "-from synccaps_followup_experiment import DATASETS",
+        "+from src.training.exp_base import UCF11VideoDataset, FrozenFeatureDataset, DEVICE",
+        "+from src.training.synccaps_followup_experiment import DATASETS"
+      ]
+    },
+    "src/training/synccaps_probe_experiment.py": {
+      "origin": "synccaps_probe_experiment.py",
+      "status": "IMPORTS_ONLY",
+      "changed_lines": 2,
+      "sha256_snapshot": "622d75ab3e3c5b05daac2422430ad0afa4da14d628b940301d991e874048cda0",
+      "sha256_repo": "c68bc8a476adeb65b94208c0b507d7afcb6f729f129e7bc49075653fdb587764",
+      "diff": [
+        "-from exp_base import (UCF11VideoDataset, make_stratified_splits,",
+        "+from src.training.exp_base import (UCF11VideoDataset, make_stratified_splits,"
+      ]
+    },
+    "src/profiling/synccaps_readout_profile.py": {
+      "origin": "synccaps_readout_profile.py",
+      "status": "EXTENDED",
+      "changed_lines": 46,
+      "sha256_snapshot": "71364900214b63c082285939c3dfdd5709da48eac6d460628c04fd896c2612c7",
+      "sha256_repo": "ba8fbf98b2622d1372cade43c8a739d4741afe784f2daa61bd5cccd9f29f8d18",
+      "diff": [
+        "+import subprocess",
+        "+",
+        "-from exp_base import DEVICE",
+        "-from synccaps_followup_experiment import make_arms",
+        "+from src.training.exp_base import DEVICE",
+        "+from src.training.synccaps_followup_experiment import make_arms",
+        "+def gpu_state():",
+        "+    \"\"\"Snapshot contention-sensitive GPU state around a timing run.",
+        "+",
+        "+    Absolute latency on a laptop GPU is only meaningful if the device was",
+        "+    otherwise idle and not clock-limited. Recording utilisation, SM clock and",
+        "+    the clock ceiling INSIDE the output file means a reader can tell a clean",
+        "+    measurement from one taken against a busy device, instead of having to",
+        "+    trust that it was clean.",
+        "+    \"\"\"",
+        "+    q = ('utilization.gpu,memory.used,memory.total,temperature.gpu,'",
+        "+         'clocks.sm,clocks.max.sm')",
+        "+    try:",
+        "+        out = subprocess.run(",
+        "+            ['nvidia-smi', '--query-gpu=' + q, '--format=csv,noheader'],",
+        "+            capture_output=True, text=True, timeout=10).stdout.strip()",
+        "+        vals = [v.strip() for v in out.split(',')]",
+        "+        return dict(zip(q.split(','), vals))",
+        "+    except Exception as e:                                # pragma: no cover",
+        "+        return {'error': '%s: %s' % (type(e).__name__, e)}",
+        "+",
+        "+",
+        "+    state_before = gpu_state()",
+        "-        ts, mem = timeit(model, x, args.warmup, args.iters)",
+        "-        ts = sorted(ts)",
+        "+        raw, mem = timeit(model, x, args.warmup, args.iters)",
+        "+        ts = sorted(raw)",
+        "+            # raw per-iteration wall times (ms), in measurement order, after",
+        "+            # `warmup` untimed iterations. Persisted so the reported p50/p95",
+        "+            # can be recomputed rather than taken on trust.",
+        "+            timings_ms=raw,",
+        "-                         torch=torch.__version__, bs=args.bs,",
+        "+                         gpu_state_before=state_before,",
+        "+                         gpu_state_after=gpu_state(),",
+        "+                         torch=torch.__version__,",
+        "+                         cuda=torch.version.cuda,",
+        "+                         cudnn=torch.backends.cudnn.version(),",
+        "+                         precision='fp32 (no autocast)',",
+        "+                         synchronisation='torch.cuda.synchronize() before and '",
+        "+                                         'after every timed iteration',",
+        "+                         warmup=args.warmup, bs=args.bs,"
+      ]
+    },
+    "src/evaluation/synccaps_repair_report.py": {
+      "origin": "synccaps_repair_report.py",
+      "status": "EXTENDED",
+      "changed_lines": 7,
+      "sha256_snapshot": "f317f9af2a49ba1ef3e22dccaf39aeb4360af696e7573567adb374efc3cef384",
+      "sha256_repo": "c025fc450b25c9bc17761f00cc976bffaccbb2dc055a95a9638bf76903740941",
+      "diff": [
+        "-RES = 'gating_results'",
+        "+# Default matches this release package. The original working tree kept these",
+        "+# files in `gating_results/`; --results-dir accepts either.",
+        "+RES = 'results/seed_summaries/raw_results_json'",
+        "+    ap.add_argument('--results-dir', default=RES,",
+        "+                    help='directory of committed result JSONs')",
+        "+    RES = args.results_dir"
+      ]
+    },
+    "src/evaluation/synccaps_route_probe.py": {
+      "origin": "synccaps_route_probe.py",
+      "status": "IMPORTS_ONLY",
+      "changed_lines": 6,
+      "sha256_snapshot": "24c3b74016841a6784a7f53c61c17fddc57156fadedecf0c8aaa678540db35cf",
+      "sha256_repo": "9a3bef3f41eba2384aa429ef2340f039c99fba8dd1ebdefe8cb0b25b48ed268b",
+      "diff": [
+        "-from exp_base import UCF11VideoDataset, FrozenFeatureDataset",
+        "-from synccaps_followup_experiment import DATASETS, make_arms",
+        "-from synccaps_probe_experiment import run_experiment_sync",
+        "+from src.training.exp_base import UCF11VideoDataset, FrozenFeatureDataset",
+        "+from src.training.synccaps_followup_experiment import DATASETS, make_arms",
+        "+from src.training.synccaps_probe_experiment import run_experiment_sync"
+      ]
+    }
+  }
+}

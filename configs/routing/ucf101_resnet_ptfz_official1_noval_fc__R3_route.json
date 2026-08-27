@@ -100,5 +100,19 @@
     "synccaps_ucf101_resnet_ptfz_official1_noval_fc_R3_route_seed101.pt",
     "synccaps_ucf101_resnet_ptfz_official1_noval_fc_R3_route_seed1337.pt",
     "synccaps_ucf101_resnet_ptfz_official1_noval_fc_R3_route_seed2026.pt"
+  ],
+  "seed_batches": [
+    {
+      "results_file": "synccaps_ucf101_resnet_ptfz_official1_noval_fc_R3_route.json",
+      "batch_id": "ucf101_resnet_ptfz_official1_noval_fc__R3_route#synccaps_ucf101_resnet_ptfz_official1_noval_fc_R3_route.json",
+      "seeds": [
+        7,
+        19,
+        42,
+        101,
+        1337,
+        2026
+      ]
+    }
   ]
 }
