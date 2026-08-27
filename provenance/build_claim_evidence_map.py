@@ -33,6 +33,9 @@ R = 'ucf101_resnet_ptfz_official1_noval_fc__'
 C = 'ucf101_clip_b32_ptfz_official1_noval_fc__'
 PC = 'ucf101_resnet_ptfz_official1_noval_fc_'
 MIX = 'pair_indices/pairs_ns2048_nself64_pair0.npz'
+MIX_ALL = ('pair_indices/pairs_ns2048_nself64_pair{0,1,2,3}.npz; '
+           'pairs_ns2048_nself0_pair{0,1,2,3}_xself.npz; '
+           'pairs_ns2048_nself2048_pair{0,1,2,3}.npz')
 T95 = {2: 4.303, 3: 3.182, 5: 2.571, 8: 2.306}
 
 
@@ -94,6 +97,32 @@ def docx_locator(path):
                 seen.add(s); out.append(s)
         return '; '.join(out[:3])
     return find
+
+
+def crossed(sv, kind_a, kind_b, dicts=(0, 1, 2, 3)):
+    """Within-dictionary contrast first, then summarise across dictionaries.
+
+    The pair-composition claim is about the DICTIONARY. Pairing at the optimizer
+    seed level ACROSS dictionaries would be meaningless, so the contrast is
+    formed inside each dictionary and n is the number of dictionaries (4), not
+    the number of runs (12). This mirrors section 6b of the repair report.
+    """
+    def eid(kind, d):
+        sfx = '' if d == 0 else '_pair%d' % d
+        stem = {'mixed': '', 'cross': '_nself0_xself', 'self': '_nself2048'}[kind]
+        return 'ucf101_resnet_ptfz_official1_noval_fc%s%s__B4_gram' % (stem, sfx)
+    per, used = [], []
+    for d in dicts:
+        A, B = sv.get(eid(kind_a, d), {}), sv.get(eid(kind_b, d), {})
+        seeds = sorted(set(A) & set(B))
+        if not seeds:
+            continue
+        per.append(st.mean(A[s] for s in seeds) - st.mean(B[s] for s in seeds))
+        used.append(d)
+    m = st.mean(per)
+    se = st.stdev(per) / math.sqrt(len(per))
+    t = T95.get(len(per) - 1, 2.0)
+    return per, used, m, (m - t * se, m + t * se)
 
 
 def main():
@@ -210,20 +239,25 @@ def main():
         'configs/resnet18/%sB4_syncnorm.json' % R, 'ZeroDecay',
         'supersedes the earlier three-seed +0.75')
 
-    for cid, aid, bid, lbl, lv in (
-            ('C11', PC + 'nself0_xself__B4_gram', PC + 'nself2048__B4_gram',
-             'cross-only minus self-only', 'self-only'),
-            ('C12', R + 'B4_gram', PC + 'nself0_xself__B4_gram',
-             'mixed minus cross-only', 'cross-only')):
-        s, m, ci = paired(sv[aid], sv[bid])
-        add(cid, 'Pair composition: %s' % lbl, OFF, RES18, 'certain', 1,
-            aid.split('__')[-1] + ' @ ' + lbl.split(' minus ')[0],
-            bid.split('__')[-1] + ' @ ' + lbl.split(' minus ')[1], s,
-            'pair_indices/PAIR_INDICES_MANIFEST.json (4 dictionaries, seeds 0-3)',
-            fmt(m, ci), REPAIR_SV + ' section 6', SEED_CSV,
-            'pair_indices/PAIR_INDICES_MANIFEST.json', '', '', lv,
-            'self-only draws 2048 indices with replacement from 2304, so only '
-            '1351-1372 are unique; the comparison is NOT rank-matched')
+    for cid, ka, kb, lbl, lv, note in (
+            ('C11', 'cross', 'self', 'cross-only minus self-only', 'self-only',
+             'Cross-pair terms carry the gain, not self-pair activation energy. '
+             'Self-only draws 2048 indices with replacement from 2304, so only '
+             '1351-1372 are unique; the comparison is NOT rank-matched.'),
+            ('C12', 'mixed', 'cross', 'mixed(64) minus cross-only', 'cross-only',
+             'Adding 64 self-pairs to a cross-only dictionary buys nothing; '
+             'TOST +/-1.0 EQUIVALENT.')):
+        per, used, m, ci = crossed(sv, ka, kb)
+        add(cid, 'Pair composition, crossed over four dictionaries: %s' % lbl,
+            OFF, RES18, 'certain', 1,
+            '%s dictionary' % ka, '%s dictionary' % kb, [], MIX_ALL,
+            '%+.2f [%+.2f, %+.2f] over n=%d dictionaries; per dictionary %s'
+            % (m, ci[0], ci[1], len(per),
+               ', '.join('pair%d:%+.2f' % (d, x) for d, x in zip(used, per))),
+            REPAIR_SV + ' section 6b (crossed); section 6 is pair_seed 0 alone',
+            SEED_CSV, 'pair_indices/PAIR_INDICES_MANIFEST.json', '', '', lv,
+            note + ' Unit of replication is the dictionary (n=4), not the run '
+            '(n=12); optimizer seeds 7,42,1337 are averaged within each.')
 
     d = ca.get('frame_permutation_disagreement', [])
     if d:

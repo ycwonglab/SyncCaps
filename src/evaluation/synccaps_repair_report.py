@@ -84,6 +84,66 @@ def contrast(name, A, B, margin=None, note=''):
     return m
 
 
+def crossed_dictionaries(name, kind_a, kind_b, files, dicts=(0, 1, 2, 3),
+                         key='test_acc_certain', margin=None, note='',
+                         preloaded=None):
+    """Crossed pair-dictionary contrast: within-dictionary first, then across.
+
+    The pair-composition claim is about the DICTIONARY, not about an optimizer
+    seed. Pairing at the seed level across dictionaries would be meaningless --
+    seed 42 under pair_seed 1 shares nothing with seed 42 under pair_seed 2
+    except the optimizer stream. So the contrast is formed inside each
+    dictionary (mean over that dictionary's optimizer seeds), and the four
+    resulting dictionary-level contrasts are then summarised with the same
+    paired t-interval used everywhere else in this report. n is 4 dictionaries,
+    not 12 runs, which is the honest unit of replication here.
+    """
+    # The pair_seed 0 MIXED arm has no dedicated results file -- it is the main
+    # B4_gram cell, whose seeds are spread over two combined files and already
+    # merged by the caller. `preloaded` supplies it rather than re-deriving it.
+    preloaded = preloaded or {}
+
+    def get(kind, d):
+        if (kind, d) in preloaded:
+            return preloaded[(kind, d)]
+        return load(files(kind, d), 'B4_gram', key)
+
+    per, used = [], []
+    for d in dicts:
+        A = get(kind_a, d)
+        B = get(kind_b, d)
+        seeds = sorted(set(A) & set(B))
+        if not seeds:
+            continue
+        per.append(sum(A[s] for s in seeds) / len(seeds)
+                   - sum(B[s] for s in seeds) / len(seeds))
+        used.append((d, len(seeds)))
+    if len(per) < 2:
+        print(f'  {name:<46} -- only {len(per)} dictionary/ies, skipped')
+        return None
+    n = len(per)
+    m = sum(per) / n
+    sd = math.sqrt(sum((x - m) ** 2 for x in per) / (n - 1))
+    se = sd / math.sqrt(n) if sd else 0.0
+    t95, t90 = T95.get(n - 1, 2.0), T90.get(n - 1, 1.7)
+    line = (f'  {name:<46} {m:+6.2f} +/- {sd:4.2f}  n={n} dicts  '
+            f'95% CI [{m - t95 * se:+6.2f}, {m + t95 * se:+6.2f}]  '
+            f'{sum(1 for x in per if x > 0)}/{n}')
+    if margin is not None:
+        l90, h90 = m - t90 * se, m + t90 * se
+        line += (f'\n  {"":<46} TOST +/-{margin:.1f}: 90% CI '
+                 f'[{l90:+6.2f}, {h90:+6.2f}] -> '
+                 f'{"EQUIVALENT" if -margin < l90 and h90 < margin else "NOT shown equivalent"}')
+    print(line)
+    if note:
+        print(f'  {"":<46} {note}')
+    print(f'  {"":<46} per dictionary: ' +
+          ', '.join(f'pair{d}:{x:+.2f}' for (d, _), x in zip(used, per)))
+    print(f'  {"":<46} optimizer seeds per dictionary: ' +
+          ', '.join(f'pair{d}:n={k}' for d, k in used))
+    return m
+
+
 def head(t):
     print('\n' + '=' * 96 + f'\n{t}\n' + '=' * 96)
 
@@ -201,6 +261,30 @@ if __name__ == '__main__':
     contrast('self-only - B0_linear', selfo, b0,
              note='how much of the +5.84 full-method gain survives with NO '
                   'cross terms at all')
+
+    head('6b. Crossed FOUR-dictionary pair composition (repair plan section 7)')
+    print('  Section 6 above is pair_seed 0 only. The manuscript reports the')
+    print('  CROSSED summary over four independent pair dictionaries; that is')
+    print('  this section. Dictionaries: pair_seed 0, 1, 2, 3 (see')
+    print('  pair_indices/PAIR_INDICES_MANIFEST.json).')
+    print()
+
+    def pcfile(kind, d):
+        suffix = '' if d == 0 else f'_pair{d}'
+        stem = {'mixed': '', 'cross': '_nself0_xself', 'self': '_nself2048'}[kind]
+        return f'{SF}{stem}{suffix}_B4_gram.json'
+
+    if args.multiclip:
+        print('  (single-view only by design -- multiclip_eval cannot build an '
+              'n_self != 64 model)')
+    crossed_dictionaries('cross-only - self-only  [4 dicts]', 'cross', 'self',
+                         pcfile,
+                         note='the co-activation reading: cross-pair terms carry '
+                              'the gain, not self-pair activation energy')
+    crossed_dictionaries('mixed(64) - cross-only  [4 dicts]', 'mixed', 'cross',
+                         pcfile, margin=args.margin, preloaded={('mixed', 0): gram},
+                         note='adding 64 self-pairs to a cross-only dictionary '
+                              'buys nothing')
 
     head('7. Val-carved replication, corrected frozen arms (plan section 2.1)')
     # PROTOCOL TRAP: the fine-tuned partner for a VAL-CARVED frozen arm must

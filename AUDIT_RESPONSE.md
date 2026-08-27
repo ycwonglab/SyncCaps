@@ -108,6 +108,41 @@ silently listed only one seed batch — including **both arms of the nine-seed
 exact-vs-sketch comparison**, which is assembled from seeds `7,42,1337` plus
 `5,11,19,23,101,2026`. Configs now merge batches and list the union.
 
+## Round 3 (2026-08-27) — crossed four-dictionary pair analysis
+
+The round-3 re-audit cleared B1, B2 and most of B3, and found one genuine
+claim-to-evidence mismatch, which was mine.
+
+The manuscript reports the pair-composition contrasts **crossed over four
+independent pair dictionaries**: cross-only − self-only `+3.17 [+2.71, +3.62]`
+and mixed − cross-only `+0.10 [−0.22, +0.42]`. The released analysis computed
+only the **pair_seed 0** result (`+3.44 [+2.13, +4.74]` and
+`+0.20 [−1.01, +1.42]`), yet C11/C12 labelled `pair_set` as "4 dictionaries,
+seeds 0–3". The map therefore contradicted the manuscript while appearing to
+support its scope. The raw results for all four dictionaries were already
+released; only the analysis and the label were wrong.
+
+Fixed by adding **section 6b** to `synccaps_repair_report.py`, which forms each
+contrast *inside* a dictionary (averaging over that dictionary's optimizer
+seeds) and then summarises across the four dictionary-level contrasts with the
+report's existing paired t-interval. It reproduces the manuscript values
+exactly, per dictionary and in summary:
+
+| contrast | pair0 | pair1 | pair2 | pair3 | summary | 95% CI |
+|---|---:|---:|---:|---:|---:|---|
+| cross-only − self-only | +3.44 | +2.80 | +3.35 | +3.08 | **+3.17** | [+2.71, +3.62] |
+| mixed(64) − cross-only | +0.20 | +0.27 | +0.12 | −0.19 | **+0.10** | [−0.22, +0.42] |
+
+C11/C12 now recompute the crossed values, and `n` is stated as 4 dictionaries
+rather than 12 runs — pairing optimizer seeds *across* dictionaries would be
+meaningless, since seed 42 under `pair_seed 1` shares nothing with seed 42 under
+`pair_seed 2` but the optimizer stream. Section 6 is retained and relabelled as
+the pair_seed 0 result; `README.md` states that the two units of replication are
+not interchangeable.
+
+The release description was also corrected: it had retained pre-rewrite
+identifiers (commit `8e33872`, "368 files").
+
 ## Manuscript
 
 Untouched, by instruction. The audit's "manuscript consequences" (Section 7.2

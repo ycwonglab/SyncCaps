@@ -6,8 +6,8 @@
 #   1. synccaps_repair_report.py  -- every SEED-LEVEL contrast, from the
 #      committed result JSONs: exact-vs-sketch (nine-seed, fresh-seed, CLIP,
 #      and the backbone x operator interaction), the routing operational band
-#      with TOST, the zero-decay control, pair composition, and the val-carved
-#      replication.
+#      with TOST, the zero-decay control, pair composition (both at pair_seed 0
+#      and CROSSED over all four dictionaries), and the val-carved replication.
 #   2. synccaps_mcnemar.py        -- CLIP-LEVEL and SOURCE-VIDEO-CLUSTERED
 #      inference from the per-clip prediction dumps.
 #   3. synccaps_claim_analyses.py -- frame-permutation disagreement and the

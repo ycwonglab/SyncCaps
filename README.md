@@ -167,13 +167,20 @@ a GPU or a checkpoint:
 
 | analysis | script | covers |
 |---|---|---|
-| seed-level contrasts | `synccaps_repair_report.py` | exact-vs-sketch (9 seeds, fresh seeds, CLIP, and the backbone × operator interaction), routing operational band with TOST, zero-decay, pair composition, val-carved replication |
+| seed-level contrasts | `synccaps_repair_report.py` | exact-vs-sketch (9 seeds, fresh seeds, CLIP, and the backbone × operator interaction), routing operational band with TOST, zero-decay, pair composition **at pair_seed 0 (§6) and crossed over all four dictionaries (§6b)**, val-carved replication |
 | clip & group inference | `synccaps_mcnemar.py` | McNemar, clip-level and source-video-clustered bootstrap, TOST, Bonferroni family |
 | remaining claims | `synccaps_claim_analyses.py` | frame-permutation disagreement, head-parameter and latency ratios |
 
 `provenance/claim_evidence_map.csv` maps every manuscript claim to the exact
 analysis, raw file, config and support artifact behind it, with the statistic
 recomputed rather than transcribed.
+
+**Two units of replication appear in the pair-composition rows.** Section 6 of
+the repair report contrasts arms at `pair_seed 0` across three optimizer seeds.
+Section 6b forms the contrast *inside* each of the four pair dictionaries and
+then summarises across them, so its `n` is 4 dictionaries rather than 12 runs.
+The manuscript quotes the crossed (§6b) values, and C11/C12 report those. The
+two disagree in width by construction and are not interchangeable.
 
 ## Known gaps
 

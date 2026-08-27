@@ -76,6 +76,25 @@ Arm means
                                                  per seed: 7:+1.35, 42:+0.93, 1337:+1.40
 
 ================================================================================================
+6b. Crossed FOUR-dictionary pair composition (repair plan section 7)
+================================================================================================
+  Section 6 above is pair_seed 0 only. The manuscript reports the
+  CROSSED summary over four independent pair dictionaries; that is
+  this section. Dictionaries: pair_seed 0, 1, 2, 3 (see
+  pair_indices/PAIR_INDICES_MANIFEST.json).
+
+  (single-view only by design -- multiclip_eval cannot build an n_self != 64 model)
+  cross-only - self-only  [4 dicts]               +3.17 +/- 0.29  n=4 dicts  95% CI [ +2.71,  +3.62]  4/4
+                                                 the co-activation reading: cross-pair terms carry the gain, not self-pair activation energy
+                                                 per dictionary: pair0:+3.44, pair1:+2.80, pair2:+3.35, pair3:+3.08
+                                                 optimizer seeds per dictionary: pair0:n=3, pair1:n=3, pair2:n=3, pair3:n=3
+  mixed(64) - cross-only  [4 dicts]               +0.47 +/- 0.82  n=4 dicts  95% CI [ -0.84,  +1.78]  3/4
+                                                 TOST +/-1.0: 90% CI [ -0.50,  +1.44] -> NOT shown equivalent
+                                                 adding 64 self-pairs to a cross-only dictionary buys nothing
+                                                 per dictionary: pair0:+1.67, pair1:+0.27, pair2:+0.12, pair3:-0.19
+                                                 optimizer seeds per dictionary: pair0:n=3, pair1:n=3, pair2:n=3, pair3:n=3
+
+================================================================================================
 7. Val-carved replication, corrected frozen arms (plan section 2.1)
 ================================================================================================
   frozen B0                     66.18  n=3
